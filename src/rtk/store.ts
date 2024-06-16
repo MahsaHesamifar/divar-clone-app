@@ -1,23 +1,39 @@
 import { configureStore } from "@reduxjs/toolkit";
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+  persistStore,
+  persistReducer,
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
 import { authApi } from "@/services/auth";
 import auth from "./features/authSlice";
 
-export const makeStore = () => {
-  return configureStore({
-    reducer: {
-      [authApi.reducerPath]: authApi.reducer,
-      auth,
-    },
-    // Adding the api middleware enables caching, invalidation, polling,
-    // and other useful features of `rtk-query`.
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(authApi.middleware),
-  });
+const persistConfig = {
+  key: "root",
+  storage,
 };
 
-// Infer the type of makeStore
-export type AppStore = ReturnType<typeof makeStore>;
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<AppStore["getState"]>;
-export type AppDispatch = AppStore["dispatch"];
+const persistedReducer = persistReducer(persistConfig, auth);
+export const makeStore = configureStore({
+  reducer: {
+    [authApi.reducerPath]: authApi.reducer,
+    auth: persistedReducer,
+  },
+  devTools: process.env.NODE_ENV !== "production",
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }).concat(authApi.middleware),
+});
+
+export type RootState = ReturnType<typeof makeStore.getState>;
+export type AppDispatch = typeof makeStore.dispatch;
+export const persistor = persistStore(makeStore);

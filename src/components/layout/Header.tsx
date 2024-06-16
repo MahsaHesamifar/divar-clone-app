@@ -1,6 +1,6 @@
 "use client";
 
-import React, { use, useEffect } from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,7 +25,7 @@ export const Header = () => {
   }, [state]);
 
   const logOutHandler = () => {
-    // dispatch(logOut());
+    dispatch(logOut());
   };
 
   return (
@@ -52,6 +52,9 @@ export const Header = () => {
                 <hr className="border-grey-200" />
                 <Link href={paths.userPanel()} className="p-4">
                   پنل کاربر
+                </Link>
+                <Link href={paths.auth()} className="p-4">
+                  ورود
                 </Link>
                 <button onClick={logOutHandler} className="p-4">
                   خروج

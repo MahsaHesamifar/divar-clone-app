@@ -38,6 +38,7 @@ const authSlice = createSlice({
     },
 
     logOut: (state) => {
+      state.mobile = "";
       state.accessToken = "";
       state.refreshToken = "";
       state.role = "";
