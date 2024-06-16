@@ -7,7 +7,7 @@ import { RootState } from "@/rtk/store";
 import { useCheckOtpMutation } from "@/services/auth";
 import { useRouter } from "next/navigation";
 import { paths } from "@/utils/paths";
-import { setAccessToken, setRefreshToken } from "@/rtk/features/authSlice";
+import { setTokens } from "@/rtk/features/authSlice";
 
 type Inputs = {
   code: string;
@@ -33,11 +33,12 @@ export const CheckOtp = () => {
       });
       if (result.data) {
         //TODO: display success message!
-        dispatch(setAccessToken({ accessToken: result.data.accessToken }));
-        dispatch(setRefreshToken({ refreshToken: result.data.refreshToken }));
-        document.cookie = `accessToken=${result.data.accessToken}; path=/`;
-        document.cookie = `refreshToken=${result.data.refreshToken}; path=/`;
-
+        dispatch(
+          setTokens({
+            accessToken: result.data.accessToken,
+            refreshToken: result.data.refreshToken,
+          })
+        );
         router.push(paths.home());
       }
     } catch (err) {

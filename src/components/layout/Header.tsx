@@ -16,10 +16,6 @@ export const Header = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("access token has changed to:");
-    console.log(accessToken);
-  }, [accessToken]);
-  useEffect(() => {
     console.log("auth state:");
     console.log(state);
   }, [state]);

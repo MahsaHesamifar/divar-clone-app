@@ -1,8 +1,4 @@
-import {
-  setAccessToken,
-  logOut,
-  setRefreshToken,
-} from "@/rtk/features/authSlice";
+import { logOut, setTokens } from "@/rtk/features/authSlice";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type {
   BaseQueryFn,
@@ -66,11 +62,12 @@ const baseQueryWithReauth: BaseQueryFn<
           const newAccessToken = data.accessToken;
           const newRefreshToken = data.refreshToken;
 
-          document.cookie = `accessToken=${newAccessToken}; path=/`;
-          document.cookie = `refreshToken=${newRefreshToken}; path=/`;
-
-          api.dispatch(setAccessToken({ accessToken: newAccessToken }));
-          api.dispatch(setRefreshToken({ refreshToken: newRefreshToken }));
+          api.dispatch(
+            setTokens({
+              accessToken: newAccessToken,
+              refreshToken: newRefreshToken,
+            })
+          );
 
           // retry the initial query
           result = await baseQuery(args, api, extraOptions);
