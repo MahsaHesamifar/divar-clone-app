@@ -56,10 +56,6 @@ const baseQueryWithReauth: BaseQueryFn<
             url: "/auth/check-refresh-token",
             method: "POST",
             body: { refreshToken },
-            // body: {
-            //   refreshToken:
-            //     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtb2JpbGUiOiIwOTkxMjMyMDI4MyIsImlkIjoiNjY2ZDI3OTU5NWJjN2IwMGQxMTk0MzA0IiwiaWF0IjoxNzE4NTI0OTQ4LCJleHAiOjE3NTEzNDc0NzM4MTd9.8QhXUetPioJhHnvbitG9Nm9bC8i95yq-lG_yAREntOQ",
-            // },
           },
           api,
           extraOptions

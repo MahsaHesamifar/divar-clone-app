@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
   FLUSH,
   PAUSE,
@@ -19,12 +19,15 @@ const persistConfig = {
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, auth);
+const rootReducer = combineReducers({
+  [authApi.reducerPath]: authApi.reducer,
+  auth,
+});
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 export const makeStore = configureStore({
-  reducer: {
-    [authApi.reducerPath]: authApi.reducer,
-    auth: persistedReducer,
-  },
+  reducer: persistedReducer,
   devTools: process.env.NODE_ENV !== "production",
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
