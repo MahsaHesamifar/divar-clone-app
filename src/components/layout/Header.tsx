@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 
+import { HeaderItem } from "@/components/layout";
 import { roles } from "@/constants";
 import { paths } from "@/utils/paths";
 import { RootState } from "@/rtk/store";
@@ -54,41 +55,17 @@ export const Header = () => {
         <div className="group relative">
           <span className="hover:bg-grey-200 py-2 px-4 rounded">دیوار من</span>
 
-          <div className="hidden group-hover:flex flex-col absolute top-5 bg-white rounded w-[200px] overflow-hidden">
+          <div className="hidden group-hover:flex flex-col absolute top-5 bg-white rounded w-[200px] overflow-hidden shadow-md">
             {accessToken && accessToken !== "" ? (
               <>
                 {role === roles.admin && !isLoading && (
-                  <>
-                    <Link href={paths.adminPanel()} className="p-4">
-                      پنل ادمین
-                    </Link>
-                    <hr className="border-grey-200 hover:bg-grey-100" />
-                  </>
+                  <HeaderItem href={paths.adminPanel()} text="پنل ادمین" />
                 )}
-                <Link
-                  href={paths.userPanel()}
-                  className="p-4 hover:bg-grey-100"
-                >
-                  پنل کاربر
-                </Link>
-                <hr className="border-grey-200 hover:bg-grey-100" />
-
-                <Link href={paths.auth()} className="p-4 hover:bg-grey-100">
-                  ورود
-                </Link>
-                <hr className="border-grey-200 hover:bg-grey-100" />
-
-                <button
-                  onClick={logOutHandler}
-                  className="p-4 text-right hover:bg-grey-100"
-                >
-                  خروج
-                </button>
+                <HeaderItem href={paths.userPanel()} text={"پنل کاربر"} />
+                <HeaderItem onClick={logOutHandler} text={"خروج"} />
               </>
             ) : (
-              <Link href={paths.auth()} className="p-4 hover:bg-grey-100">
-                ورود
-              </Link>
+              <HeaderItem href={paths.auth()} text={"ورود"} />
             )}
           </div>
         </div>
