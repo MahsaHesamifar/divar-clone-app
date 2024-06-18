@@ -14,4 +14,7 @@ export const paths = {
   postShow(id: string) {
     return `/posts/${id}`;
   },
+  unauthorized() {
+    return "/unauthorized";
+  },
 };

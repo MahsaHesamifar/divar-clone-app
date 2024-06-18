@@ -44,13 +44,24 @@ const authSlice = createSlice({
       state.accessToken = "";
       state.refreshToken = "";
       state.role = "";
+
       Cookies.remove("accessToken");
       Cookies.remove("refreshToken");
+      Cookies.remove("role");
+    },
+
+    setRole: (
+      state,
+      { payload: { role } }: PayloadAction<{ role: string }>
+    ) => {
+      state.role = role;
+
+      Cookies.set("role", role);
     },
   },
   extraReducers: (builder) => {},
 });
 
-export const { setMobile, setTokens, logOut } = authSlice.actions;
+export const { setMobile, setTokens, logOut, setRole } = authSlice.actions;
 
 export default authSlice.reducer;

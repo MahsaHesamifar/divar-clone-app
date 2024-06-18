@@ -1,27 +1,42 @@
 "use client";
 
-import React, { useEffect } from "react";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 
+import { roles } from "@/constants";
 import { paths } from "@/utils/paths";
 import { RootState } from "@/rtk/store";
-import { logOut } from "@/rtk/features/authSlice";
+import { useGetUserRoleQuery } from "@/services/auth";
+import { logOut, setRole } from "@/rtk/features/authSlice";
 
 export const Header = () => {
-  const accessToken = useSelector((state: RootState) => state.auth.accessToken);
-  const state = useSelector((state: RootState) => state.auth);
+  const { accessToken, role } = useSelector((state: RootState) => state.auth);
+  const { data, isLoading } = useGetUserRoleQuery();
 
+  const router = useRouter();
   const dispatch = useDispatch();
 
+  // ----------------- must be removed later
+  const state = useSelector((state: RootState) => state.auth);
   useEffect(() => {
     console.log("auth state:");
     console.log(state);
   }, [state]);
+  // -----------------
+
+  useEffect(() => {
+    if (data && accessToken) {
+      dispatch(setRole({ role: data.role }));
+    }
+  }, [data, dispatch]);
 
   const logOutHandler = () => {
     dispatch(logOut());
+
+    router.push(paths.home());
   };
 
   return (
@@ -39,25 +54,39 @@ export const Header = () => {
         <div className="group relative">
           <span className="hover:bg-grey-200 py-2 px-4 rounded">دیوار من</span>
 
-          <div className="hidden group-hover:flex flex-col absolute top-5 bg-white rounded w-[200px]">
+          <div className="hidden group-hover:flex flex-col absolute top-5 bg-white rounded w-[200px] overflow-hidden">
             {accessToken && accessToken !== "" ? (
               <>
-                <Link href={paths.adminPanel()} className="p-4">
-                  پنل ادمین
-                </Link>
-                <hr className="border-grey-200" />
-                <Link href={paths.userPanel()} className="p-4">
+                {role === roles.admin && !isLoading && (
+                  <>
+                    <Link href={paths.adminPanel()} className="p-4">
+                      پنل ادمین
+                    </Link>
+                    <hr className="border-grey-200 hover:bg-grey-100" />
+                  </>
+                )}
+                <Link
+                  href={paths.userPanel()}
+                  className="p-4 hover:bg-grey-100"
+                >
                   پنل کاربر
                 </Link>
-                <Link href={paths.auth()} className="p-4">
+                <hr className="border-grey-200 hover:bg-grey-100" />
+
+                <Link href={paths.auth()} className="p-4 hover:bg-grey-100">
                   ورود
                 </Link>
-                <button onClick={logOutHandler} className="p-4">
+                <hr className="border-grey-200 hover:bg-grey-100" />
+
+                <button
+                  onClick={logOutHandler}
+                  className="p-4 text-right hover:bg-grey-100"
+                >
                   خروج
                 </button>
               </>
             ) : (
-              <Link href={paths.auth()} className="p-4">
+              <Link href={paths.auth()} className="p-4 hover:bg-grey-100">
                 ورود
               </Link>
             )}

@@ -1,13 +1,14 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { RootState } from "@/rtk/store";
-import { useCheckOtpMutation } from "@/services/auth";
-import { useRouter } from "next/navigation";
+
 import { paths } from "@/utils/paths";
+import { RootState } from "@/rtk/store";
 import { setTokens } from "@/rtk/features/authSlice";
+import { useCheckOtpMutation } from "@/services/auth";
 
 type Inputs = {
   code: string;
@@ -15,7 +16,9 @@ type Inputs = {
 
 export const CheckOtp = () => {
   const [checkOtp, { isLoading }] = useCheckOtpMutation();
+
   const mobile = useSelector((state: RootState) => state.auth.mobile);
+
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -32,13 +35,13 @@ export const CheckOtp = () => {
         code: data.code,
       });
       if (result.data) {
-        //TODO: display success message!
         dispatch(
           setTokens({
             accessToken: result.data.accessToken,
             refreshToken: result.data.refreshToken,
           })
         );
+
         router.push(paths.home());
       }
     } catch (err) {

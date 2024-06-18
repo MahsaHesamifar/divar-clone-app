@@ -38,7 +38,7 @@ export const authApi = baseStoreApi.injectEndpoints({
         },
       }),
     }),
-    getUserRole: builder.query({
+    getUserRole: builder.query<{ role: string }, void>({
       query: () => "user/whoami",
     }),
   }),
