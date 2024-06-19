@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import { useCreateCategoryMutation } from "@/services/category";
-import { InputField, SelectField } from "@/components/global";
+import { CustomButton, InputField, SelectField } from "@/components/global";
 import { iconOptions } from "@/constants";
 
 type Inputs = {
@@ -12,7 +12,7 @@ type Inputs = {
 };
 
 export const CreateCategory = () => {
-  const [createCategory] = useCreateCategoryMutation();
+  const [createCategory, { isLoading }] = useCreateCategoryMutation();
   const {
     register,
     handleSubmit,
@@ -82,12 +82,7 @@ export const CreateCategory = () => {
 
       <hr className="border border-grey-200 mt-10 mb-5" />
       <div className="w-full flex justify-end">
-        <button
-          type="submit"
-          className="bg-primary rounded py-2 px-4 text-white"
-        >
-          تایید
-        </button>
+        <CustomButton type="submit" isLoading={isLoading} text="تایید" />
       </div>
     </form>
   );

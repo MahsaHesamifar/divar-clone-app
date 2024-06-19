@@ -4,10 +4,10 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
+import { InputField, CustomButton } from "@/components/global";
 import { useCheckOtpMutation } from "@/services/auth";
 import { setTokens } from "@/rtk/features/authSlice";
 import { RootState } from "@/rtk/store";
-import { InputField } from "@/components/global";
 import { paths } from "@/utils/paths";
 
 type Inputs = {
@@ -67,16 +67,7 @@ export const CheckOtp = () => {
 
       <hr className="border border-grey-200 mt-10 mb-5" />
       <div className="w-full flex justify-end">
-        {isLoading ? (
-          <div>loading</div>
-        ) : (
-          <button
-            type="submit"
-            className="bg-primary rounded py-2 px-4 text-white"
-          >
-            تایید
-          </button>
-        )}
+        <CustomButton type="submit" isLoading={isLoading} text={"تایید"} />
       </div>
     </form>
   );

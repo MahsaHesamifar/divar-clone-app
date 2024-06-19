@@ -3,9 +3,9 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
+import { InputField, CustomButton } from "@/components/global";
 import { useSendOtpMutation } from "@/services/auth";
 import { setMobile } from "@/rtk/features/authSlice";
-import { InputField } from "@/components/global";
 import { steps } from "@/constants";
 
 interface SendOtpProps {
@@ -63,16 +63,7 @@ export const SendOtp = ({ step, setStep }: SendOtpProps) => {
 
       <hr className="border border-grey-200 mt-10 mb-5" />
       <div className="w-full flex justify-end">
-        {isLoading ? (
-          <div>loading</div>
-        ) : (
-          <button
-            type="submit"
-            className="bg-primary rounded py-2 px-4 text-white"
-          >
-            تایید
-          </button>
-        )}
+        <CustomButton type="submit" isLoading={isLoading} text={"تایید"} />
       </div>
     </form>
   );
