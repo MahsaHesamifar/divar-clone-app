@@ -45,8 +45,7 @@ const baseQueryWithReauth: BaseQueryFn<
         // try to get a new token
         const state = api.getState() as RootState;
         const refreshToken = state.auth.refreshToken;
-        console.log(state.auth);
-        console.log(state.auth.accessToken);
+        console.log("checkRefreshTokenResponse: ", state.auth);
 
         const refreshResult = await baseQuery(
           {
@@ -91,7 +90,7 @@ const baseQueryWithReauth: BaseQueryFn<
 };
 
 export const baseStoreApi = createApi({
-  reducerPath: "divarApi",
+  reducerPath: "baseStoreApi",
   baseQuery: baseQueryWithReauth,
 
   tagTypes: ["User", "Category"],
