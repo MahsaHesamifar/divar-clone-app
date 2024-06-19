@@ -91,10 +91,10 @@ const baseQueryWithReauth: BaseQueryFn<
 };
 
 export const baseStoreApi = createApi({
-  reducerPath: "authApi",
+  reducerPath: "divarApi",
   baseQuery: baseQueryWithReauth,
 
-  tagTypes: ["User"],
+  tagTypes: ["User", "Category"],
 
   endpoints: (builder) => ({}),
 });

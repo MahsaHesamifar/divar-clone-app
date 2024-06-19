@@ -6,8 +6,10 @@ import { useEffect } from "react";
 import { useGetUserRoleQuery } from "@/services/auth";
 import { paths } from "@/utils/paths";
 
+type useAuthorizeType = string[];
+
 // Why this code is needed: the user might change their role manually, in this case, they must be denied access to protected pages
-export const useAuthorize = (requiredRoles: string[]) => {
+export const useAuthorize = (requiredRoles: useAuthorizeType) => {
   const { data, error, isLoading } = useGetUserRoleQuery();
 
   const pathname = usePathname();

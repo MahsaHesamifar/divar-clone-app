@@ -18,9 +18,11 @@ export const categoryApi = baseStoreApi.injectEndpoints({
           parent,
         },
       }),
+      invalidatesTags: ["Category"],
     }),
     getCategories: builder.query<GetCategoriesRes, void>({
       query: () => "category",
+      providesTags: ["Category"],
     }),
   }),
 });

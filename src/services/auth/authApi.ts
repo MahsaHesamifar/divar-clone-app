@@ -19,6 +19,7 @@ export const authApi = baseStoreApi.injectEndpoints({
           mobile,
         },
       }),
+      invalidatesTags: ["User"],
     }),
     checkOtp: builder.mutation<CheckOtpRes, CheckOtpReq>({
       query: ({ mobile, code }) => ({
@@ -29,6 +30,7 @@ export const authApi = baseStoreApi.injectEndpoints({
           code,
         },
       }),
+      invalidatesTags: ["User"],
     }),
     checkRefreshToken: builder.mutation<CheckTokenRes, CheckTokenReq>({
       query: ({ refreshToken }) => ({
@@ -38,9 +40,12 @@ export const authApi = baseStoreApi.injectEndpoints({
           refreshToken,
         },
       }),
+      invalidatesTags: ["User"],
     }),
     getUserRole: builder.query<GetUserRoleRes, void>({
       query: () => "user/whoami",
+
+      providesTags: ["User"],
     }),
   }),
 });

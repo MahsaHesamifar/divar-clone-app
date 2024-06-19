@@ -33,7 +33,7 @@ export const CustomButton = ({
       ) : (
         <button
           type={type ? type : "button"}
-          className="bg-primary rounded py-2 px-4 text-white"
+          className="bg-primary hover:bg-primary/80 rounded py-2 px-4 text-white"
           onClick={clickHandler}
         >
           {text}
