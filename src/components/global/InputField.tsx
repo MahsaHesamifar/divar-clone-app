@@ -7,6 +7,7 @@ interface InputFieldProps {
   error?: FieldError;
   registration: UseFormRegisterReturn;
   errorMessage: string;
+  isLeftToRight?: boolean;
 }
 
 export const InputField = ({
@@ -16,12 +17,16 @@ export const InputField = ({
   registration,
   error,
   errorMessage,
+  isLeftToRight,
 }: InputFieldProps) => {
   return (
     <>
       {showLabel && <label htmlFor={name}>{label}:</label>}
       <input
-        className="w-full py-2 px-4 border-2 border-grey-200 rounded-lg mt-4 my-6"
+        className={`w-full py-2 px-4 border-2 border-grey-200 rounded-lg mt-4 my-6 ${
+          isLeftToRight ? "text-left" : null
+        }`}
+        dir={isLeftToRight ? "ltr" : ""}
         placeholder={label}
         {...registration}
       />

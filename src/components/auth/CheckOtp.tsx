@@ -9,6 +9,7 @@ import { paths } from "@/utils/paths";
 import { RootState } from "@/rtk/store";
 import { setTokens } from "@/rtk/features/authSlice";
 import { useCheckOtpMutation } from "@/services/auth";
+import { InputField } from "@/components/global";
 
 type Inputs = {
   code: string;
@@ -53,17 +54,17 @@ export const CheckOtp = () => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <p className="font-bold my-5">کد تأیید را وارد کنید</p>
       <p className="text-grey-400 my-5">کد پیامک‌شده را وارد کنید.</p>
-      <input
-        className="w-full py-2 px-4 border-2 border-grey-200 rounded-lg text-left"
-        dir="ltr"
-        placeholder="code"
-        {...register("code", {
+
+      <InputField
+        label="code"
+        name="code"
+        registration={register("code", {
           required: true,
         })}
+        error={errors.code}
+        errorMessage={"لطفا کد را به درستی وارد نمایید"}
+        isLeftToRight
       />
-      {errors.code && (
-        <p className="text-primary my-2">لطفا کد را به درستی وارد نمایید</p>
-      )}
 
       <hr className="border border-grey-200 mt-10 mb-5" />
       <div className="w-full flex justify-end">

@@ -1,11 +1,11 @@
 "use client";
 
-import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 import { useSendOtpMutation } from "@/services/auth";
-import { useDispatch } from "react-redux";
 import { setMobile } from "@/rtk/features/authSlice";
+import { InputField } from "@/components/global";
 import { steps } from "@/constants";
 
 interface SendOtpProps {
@@ -48,20 +48,18 @@ export const SendOtp = ({ step, setStep }: SendOtpProps) => {
         برای استفاده از امکانات دیوار، لطفاً شمارهٔ موبایل خود را وارد کنید. کد
         تأیید به این شماره پیامک خواهد شد.
       </p>
-      <input
-        className="w-full py-2 px-4 border-2 border-grey-200 rounded-lg text-left"
-        dir="ltr"
-        placeholder="شماره موبایل"
-        {...register("mobile", {
+
+      <InputField
+        label="شماره موبایل"
+        name="mobile"
+        registration={register("mobile", {
           required: true,
           pattern: /^(\+98|0)?9\d{9}$/,
         })}
+        error={errors.mobile}
+        errorMessage={"لطفا شماره موبایل را به درستی وارد نمایید"}
+        isLeftToRight
       />
-      {errors.mobile && (
-        <p className="text-primary my-2">
-          لطفا شماره موبایل را به درستی وارد نمایید
-        </p>
-      )}
 
       <hr className="border border-grey-200 mt-10 mb-5" />
       <div className="w-full flex justify-end">
