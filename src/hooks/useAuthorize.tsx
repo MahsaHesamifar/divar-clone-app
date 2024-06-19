@@ -7,7 +7,7 @@ import { paths } from "@/utils/paths";
 import { useGetUserRoleQuery } from "@/services/auth";
 
 // Why this code is needed: the user might change their role manually, in this case, they must be denied access to protected pages
-export const useAuthorize = (requiredRole: string) => {
+export const useAuthorize = (requiredRoles: string[]) => {
   const { data, error, isLoading } = useGetUserRoleQuery();
 
   const pathname = usePathname();
@@ -26,9 +26,9 @@ export const useAuthorize = (requiredRole: string) => {
     if (error) redirectToUnauthorized();
     else if (!isLoading && data) {
       const { role } = data;
-      if (role !== requiredRole) {
+      if (!requiredRoles.includes(role)) {
         redirectToUnauthorized();
       }
     }
-  }, [data, isLoading, router, requiredRole]);
+  }, [data, isLoading, router, requiredRoles]);
 };
