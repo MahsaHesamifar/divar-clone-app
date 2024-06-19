@@ -1,30 +1,30 @@
-export interface SendOtpRequest {
+export interface SendOtpReq {
   mobile: string;
 }
-export interface SendOtpResponse {
+export interface SendOtpRes {
   message: string;
 }
 
-export interface CheckOtpRequest {
+export interface CheckOtpReq {
   mobile: string;
   code: string;
 }
-export interface CheckOtpResponse {
+export interface CheckOtpRes {
   message: string;
   accessToken: string;
   refreshToken: string;
 }
 
-export interface CheckTokenRequest {
+export interface CheckTokenReq {
   refreshToken: string;
 }
 
-export interface CheckTokenResponse {
+export interface CheckTokenRes {
   message: string;
   accessToken: string;
   refreshToken: string;
 }
 
-export interface GetUserRoleResponse {
+export interface GetUserRoleRes {
   role: string;
 }

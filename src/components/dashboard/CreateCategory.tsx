@@ -1,5 +1,6 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 
+import { useCreateCategoryMutation } from "@/services/category";
 import { InputField, SelectField } from "@/components/global";
 import { iconOptions } from "@/constants";
 
@@ -11,6 +12,7 @@ type Inputs = {
 };
 
 export const CreateCategory = () => {
+  const [createCategory] = useCreateCategoryMutation();
   const {
     register,
     handleSubmit,
@@ -18,7 +20,20 @@ export const CreateCategory = () => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    console.log(data);
+    const { name, slug, icon, parent } = data;
+    try {
+      const result = await createCategory({
+        name,
+        slug,
+        icon,
+        parent,
+      });
+      if (result.data) {
+        console.log(result.data);
+      }
+    } catch (err) {
+      throw err;
+    }
   };
   return (
     <form

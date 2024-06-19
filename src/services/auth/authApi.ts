@@ -1,17 +1,17 @@
 import { baseStoreApi } from "../baseStore";
 import type {
-  SendOtpRequest,
-  SendOtpResponse,
-  CheckOtpRequest,
-  CheckOtpResponse,
-  CheckTokenRequest,
-  CheckTokenResponse,
-  GetUserRoleResponse,
-} from "./types";
+  SendOtpReq,
+  SendOtpRes,
+  CheckOtpReq,
+  CheckOtpRes,
+  CheckTokenReq,
+  CheckTokenRes,
+  GetUserRoleRes,
+} from "../auth";
 
 export const authApi = baseStoreApi.injectEndpoints({
   endpoints: (builder) => ({
-    sendOtp: builder.mutation<SendOtpResponse, SendOtpRequest>({
+    sendOtp: builder.mutation<SendOtpRes, SendOtpReq>({
       query: ({ mobile }) => ({
         url: "auth/send-otp",
         method: "POST",
@@ -20,7 +20,7 @@ export const authApi = baseStoreApi.injectEndpoints({
         },
       }),
     }),
-    checkOtp: builder.mutation<CheckOtpResponse, CheckOtpRequest>({
+    checkOtp: builder.mutation<CheckOtpRes, CheckOtpReq>({
       query: ({ mobile, code }) => ({
         url: "auth/check-otp",
         method: "POST",
@@ -30,7 +30,7 @@ export const authApi = baseStoreApi.injectEndpoints({
         },
       }),
     }),
-    checkRefreshToken: builder.mutation<CheckTokenResponse, CheckTokenRequest>({
+    checkRefreshToken: builder.mutation<CheckTokenRes, CheckTokenReq>({
       query: ({ refreshToken }) => ({
         url: "auth/check-refresh-token",
         method: "POST",
@@ -39,7 +39,7 @@ export const authApi = baseStoreApi.injectEndpoints({
         },
       }),
     }),
-    getUserRole: builder.query<GetUserRoleResponse, void>({
+    getUserRole: builder.query<GetUserRoleRes, void>({
       query: () => "user/whoami",
     }),
   }),

@@ -1,1 +1,1 @@
-export const iconOptions = ["car", "house", "book", "bag"];
+export const iconOptions = ["car", "home"];
