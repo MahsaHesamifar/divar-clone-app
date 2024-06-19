@@ -1,5 +1,7 @@
-import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+
+import { iconOptions } from "@/constants";
+import { InputField, SelectField } from "@/components/global";
 
 type Inputs = {
   name: string;
@@ -16,7 +18,7 @@ export const CreateCategory = () => {
   } = useForm<Inputs>();
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    //
+    console.log(data);
   };
   return (
     <form
@@ -24,53 +26,44 @@ export const CreateCategory = () => {
       className="w-full lg:w-1/2 lg:mr-20"
     >
       <p className="font-bold my-5">اطلاعات زیر را وارد کنید</p>
-
-      <label htmlFor="name">نام:</label>
-      <input
-        className="w-full py-2 px-4 border-2 border-grey-200 rounded-lg mt-4 my-6"
-        placeholder="نام"
-        {...register("name", {
+      <InputField
+        showLabel={true}
+        label="نام * "
+        name="name"
+        registration={register("name", {
           required: true,
         })}
+        error={errors.name}
+        errorMessage="لطفا نام را به درستی وارد نمایید"
       />
-      {errors.name && (
-        <p className="text-primary mb-2">لطفا نام را به درستی وارد نمایید</p>
-      )}
 
-      <label htmlFor="slug">اسلاگ:</label>
-      <input
-        className="w-full py-2 px-4 border-2 border-grey-200 rounded-lg mt-4 my-6"
-        placeholder="اسلاگ"
-        {...register("slug", {})}
+      <InputField
+        showLabel={true}
+        label="اسلاگ"
+        name="slug"
+        registration={register("slug")}
+        error={errors.slug}
+        errorMessage="لطفا اسلاگ را به درستی وارد نمایید"
       />
-      {errors.slug && (
-        <p className="text-primary mb-2">لطفا اسلاگ را به درستی وارد نمایید</p>
-      )}
 
-      <label htmlFor="icon">آیکون:</label>
-      <select
-        className="w-full py-2 px-4 border-2 border-grey-200 rounded-lg mt-4 my-6"
-        {...register("icon")}
-      >
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-      </select>
-      {errors.icon && (
-        <p className="text-primary mb-2">
-          لطفا آیکون را به درستی انتخاب نمایید
-        </p>
-      )}
-
-      <label htmlFor="parent">پدر:</label>
-      <input
-        className="w-full py-2 px-4 border-2 border-grey-200 rounded-lg mt-4 my-6"
-        placeholder="پدر"
-        {...register("parent", {})}
+      <SelectField
+        showLabel={true}
+        label="آیکون * "
+        name="icon"
+        registration={register("icon")}
+        error={errors.parent}
+        errorMessage={"لطفا آیکون را به درستی انتخاب نمایید"}
+        options={iconOptions}
       />
-      {errors.parent && (
-        <p className="text-primary mb-2">لطفا پدر را به درستی وارد نمایید</p>
-      )}
+
+      <InputField
+        showLabel={true}
+        label="پدر"
+        name="parent"
+        registration={register("parent", {})}
+        error={errors.parent}
+        errorMessage="لطفا پدر را به درستی وارد نمایید"
+      />
 
       <hr className="border border-grey-200 mt-10 mb-5" />
       <div className="w-full flex justify-end">
