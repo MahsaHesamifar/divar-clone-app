@@ -1,8 +1,8 @@
-import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
-import { roles } from "@/constants";
 import { paths } from "@/utils/paths";
+import { roles } from "@/constants";
 
 const protectedRoutes = [paths.adminPanel(), paths.userPanel()];
 
@@ -17,11 +17,11 @@ export async function middleware(request: NextRequest) {
   const isAdminRoute = request.nextUrl.pathname.startsWith(paths.adminPanel());
 
   if (isAuthRoute && accessToken) {
-    return NextResponse.redirect(new URL("/dashboard/user-panel", request.url));
+    return NextResponse.redirect(new URL(paths.userPanel(), request.url));
   }
 
   if (isProtectedRoute && !accessToken) {
-    return NextResponse.redirect(new URL("/auth", request.url));
+    return NextResponse.redirect(new URL(paths.auth(), request.url));
   }
 
   if (isAdminRoute && userRole !== roles.admin) {

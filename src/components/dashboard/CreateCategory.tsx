@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 
-import { iconOptions } from "@/constants";
 import { InputField, SelectField } from "@/components/global";
+import { iconOptions } from "@/constants";
 
 type Inputs = {
   name: string;

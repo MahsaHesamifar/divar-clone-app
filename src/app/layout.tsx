@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import StoreProvider from "@/services/StoreProvider";
 import { Header, Footer } from "@/components/layout";
+import StoreProvider from "@/services/StoreProvider";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {

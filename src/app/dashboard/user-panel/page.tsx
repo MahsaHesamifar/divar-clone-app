@@ -1,9 +1,7 @@
 "use client";
 
-import React from "react";
-
-import { roles } from "@/constants";
 import { useAuthorize } from "@/hooks";
+import { roles } from "@/constants";
 
 // TODO: create post + show user posts
 export default function UserPanel() {

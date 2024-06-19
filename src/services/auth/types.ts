@@ -24,3 +24,7 @@ export interface CheckTokenResponse {
   accessToken: string;
   refreshToken: string;
 }
+
+export interface GetUserRoleResponse {
+  role: string;
+}

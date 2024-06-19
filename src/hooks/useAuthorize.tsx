@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-import { paths } from "@/utils/paths";
 import { useGetUserRoleQuery } from "@/services/auth";
+import { paths } from "@/utils/paths";
 
 // Why this code is needed: the user might change their role manually, in this case, they must be denied access to protected pages
 export const useAuthorize = (requiredRoles: string[]) => {

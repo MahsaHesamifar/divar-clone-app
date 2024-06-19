@@ -1,13 +1,13 @@
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { Mutex } from "async-mutex";
 import type {
   BaseQueryFn,
   FetchArgs,
   FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import type { RootState } from "@/rtk/store";
 import { logOut, setTokens } from "@/rtk/features/authSlice";
+import type { RootState } from "@/rtk/store";
 
 interface RefreshTokenResponse {
   accessToken: string;

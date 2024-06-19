@@ -1,17 +1,17 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
 
-import { HeaderItem } from "@/components/layout";
-import { roles } from "@/constants";
-import { paths } from "@/utils/paths";
-import { RootState } from "@/rtk/store";
 import { useGetUserRoleQuery } from "@/services/auth";
 import { logOut, setRole } from "@/rtk/features/authSlice";
+import { RootState } from "@/rtk/store";
+import { HeaderItem } from "@/components/layout";
+import { paths } from "@/utils/paths";
+import { roles } from "@/constants";
 
 export const Header = () => {
   const { accessToken, role } = useSelector((state: RootState) => state.auth);

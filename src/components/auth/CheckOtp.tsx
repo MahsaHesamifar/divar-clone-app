@@ -1,15 +1,14 @@
 "use client";
 
-import React from "react";
-import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
 
-import { paths } from "@/utils/paths";
-import { RootState } from "@/rtk/store";
-import { setTokens } from "@/rtk/features/authSlice";
 import { useCheckOtpMutation } from "@/services/auth";
+import { setTokens } from "@/rtk/features/authSlice";
+import { RootState } from "@/rtk/store";
 import { InputField } from "@/components/global";
+import { paths } from "@/utils/paths";
 
 type Inputs = {
   code: string;

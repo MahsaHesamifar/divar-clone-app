@@ -6,6 +6,7 @@ import type {
   CheckOtpResponse,
   CheckTokenRequest,
   CheckTokenResponse,
+  GetUserRoleResponse,
 } from "./types";
 
 export const authApi = baseStoreApi.injectEndpoints({
@@ -38,7 +39,7 @@ export const authApi = baseStoreApi.injectEndpoints({
         },
       }),
     }),
-    getUserRole: builder.query<{ role: string }, void>({
+    getUserRole: builder.query<GetUserRoleResponse, void>({
       query: () => "user/whoami",
     }),
   }),
