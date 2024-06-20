@@ -19,12 +19,15 @@ export const useAuthorize = (requiredRoles: useAuthorizeType) => {
   const attemptedUrl =
     pathname + (searchParams.toString() ? `?${searchParams.toString()}` : "");
 
-  const redirectToUnauthorized = () => {
-    router.push(
-      `${paths.unauthorized()}?attemptedUrl=${encodeURIComponent(attemptedUrl)}`
-    );
-  };
   useEffect(() => {
+    const redirectToUnauthorized = () => {
+      router.push(
+        `${paths.unauthorized()}?attemptedUrl=${encodeURIComponent(
+          attemptedUrl
+        )}`
+      );
+    };
+
     if (error) redirectToUnauthorized();
     else if (!isLoading && data) {
       const { role } = data;
@@ -32,5 +35,5 @@ export const useAuthorize = (requiredRoles: useAuthorizeType) => {
         redirectToUnauthorized();
       }
     }
-  }, [data, isLoading, router, requiredRoles]);
+  }, [data, isLoading, router, requiredRoles, error, attemptedUrl]);
 };

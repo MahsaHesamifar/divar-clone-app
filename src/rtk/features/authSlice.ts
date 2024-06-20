@@ -1,6 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 
+import { baseStoreApi } from "@/services/baseStore";
+
 interface InitialStateType {
   mobile: string;
   accessToken: string;
@@ -39,15 +41,13 @@ const authSlice = createSlice({
       Cookies.set("refreshToken", refreshToken);
     },
 
-    logOut: (state) => {
-      state.mobile = "";
-      state.accessToken = "";
-      state.refreshToken = "";
-      state.role = "";
-
+    logOut: () => {
       Cookies.remove("accessToken");
       Cookies.remove("refreshToken");
       Cookies.remove("role");
+
+      baseStoreApi.util.invalidateTags(["User"]);
+      return initialState;
     },
 
     setRole: (

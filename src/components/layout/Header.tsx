@@ -32,7 +32,7 @@ export const Header = () => {
     if (data && accessToken) {
       dispatch(setRole({ role: data.role }));
     }
-  }, [data, dispatch]);
+  }, [accessToken, data, dispatch]);
 
   const logOutHandler = () => {
     dispatch(logOut());
