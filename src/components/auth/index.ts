@@ -1,2 +1,2 @@
-export * from "./SendOtp";
 export * from "./CheckOtp";
+export * from "./SendOtp";

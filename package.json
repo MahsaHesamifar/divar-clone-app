@@ -13,6 +13,7 @@
     "@types/js-cookie": "^3.0.6",
     "@types/jsonwebtoken": "^9.0.6",
     "async-mutex": "^0.5.0",
+    "eslint-plugin-simple-import-sort": "^12.1.0",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
     "next": "14.2.3",

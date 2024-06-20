@@ -3,15 +3,16 @@ import {
   FLUSH,
   PAUSE,
   PERSIST,
+  persistReducer,
+  persistStore,
   PURGE,
   REGISTER,
   REHYDRATE,
-  persistStore,
-  persistReducer,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
 import { baseStoreApi } from "@/services/baseStore";
+
 import auth from "./features/authSlice";
 
 const persistConfig = {

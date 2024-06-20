@@ -1,12 +1,12 @@
 "use client";
 
-import { useForm, SubmitHandler } from "react-hook-form";
+import { SubmitHandler,useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
-import { InputField, CustomButton } from "@/components/global";
-import { useSendOtpMutation } from "@/services/auth";
-import { setMobile } from "@/rtk/features/authSlice";
+import { CustomButton,InputField } from "@/components/global";
 import { steps } from "@/constants";
+import { setMobile } from "@/rtk/features/authSlice";
+import { useSendOtpMutation } from "@/services/auth";
 
 interface SendOtpProps {
   step: string;

@@ -1,8 +1,8 @@
 "use client";
 
-import { useAuthorize } from "@/hooks";
-import { roles } from "@/constants";
 import { CreatePost } from "@/components/dashboard";
+import { roles } from "@/constants";
+import { useAuthorize } from "@/hooks";
 
 // TODO: create post + show user posts
 export default function UserPanel() {

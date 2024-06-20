@@ -1,7 +1,7 @@
 "use client";
 
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { usePathname, useRouter,useSearchParams } from "next/navigation";
 
 import { useGetUserRoleQuery } from "@/services/auth";
 import { paths } from "@/utils/paths";

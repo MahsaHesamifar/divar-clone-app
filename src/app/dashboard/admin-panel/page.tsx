@@ -1,8 +1,8 @@
 "use client";
 
 import { CreateCategory } from "@/components/dashboard";
-import { useAuthorize } from "@/hooks";
 import { roles } from "@/constants";
+import { useAuthorize } from "@/hooks";
 
 export default function AdminPanel() {
   useAuthorize([roles.admin]);

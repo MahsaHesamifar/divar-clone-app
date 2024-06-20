@@ -1,13 +1,13 @@
 "use client";
 
-import { useForm, SubmitHandler } from "react-hook-form";
+import { SubmitHandler,useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 
-import { InputField, CustomButton } from "@/components/global";
-import { useCheckOtpMutation } from "@/services/auth";
+import { CustomButton,InputField } from "@/components/global";
 import { setTokens } from "@/rtk/features/authSlice";
 import { RootState } from "@/rtk/store";
+import { useCheckOtpMutation } from "@/services/auth";
 import { paths } from "@/utils/paths";
 
 type Inputs = {

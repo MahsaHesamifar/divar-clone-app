@@ -1,8 +1,8 @@
-import { useForm, SubmitHandler } from "react-hook-form";
+import { SubmitHandler,useForm } from "react-hook-form";
 
-import { useCreateCategoryMutation } from "@/services/category";
 import { CustomButton, InputField, SelectField } from "@/components/global";
 import { iconOptions } from "@/constants";
+import { useCreateCategoryMutation } from "@/services/category";
 
 type Inputs = {
   name: string;

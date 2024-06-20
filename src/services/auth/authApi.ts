@@ -1,13 +1,13 @@
-import { baseStoreApi } from "../baseStore";
 import type {
-  SendOtpReq,
-  SendOtpRes,
   CheckOtpReq,
   CheckOtpRes,
   CheckTokenReq,
   CheckTokenRes,
   GetUserRoleRes,
+  SendOtpReq,
+  SendOtpRes,
 } from "../auth";
+import { baseStoreApi } from "../baseStore";
 
 export const authApi = baseStoreApi.injectEndpoints({
   endpoints: (builder) => ({

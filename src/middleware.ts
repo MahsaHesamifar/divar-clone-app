@@ -1,8 +1,8 @@
 import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
-import { paths } from "@/utils/paths";
 import { roles } from "@/constants";
+import { paths } from "@/utils/paths";
 
 const protectedRoutes = [paths.adminPanel(), paths.userPanel()];
 

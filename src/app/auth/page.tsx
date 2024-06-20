@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
+import { CheckOtp,SendOtp } from "@/components/auth";
 import { steps } from "@/constants";
-import { SendOtp, CheckOtp } from "@/components/auth";
 
 export default function Auth() {
   const [step, setStep] = useState(steps.send);

@@ -1,7 +1,7 @@
 import { baseStoreApi } from "../baseStore";
 import {
-  CreateCategoryRes,
   CreateCategoryReq,
+  CreateCategoryRes,
   GetCategoriesRes,
 } from "../category";
 
