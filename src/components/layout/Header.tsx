@@ -8,31 +8,27 @@ import { useRouter } from "next/navigation";
 
 import { HeaderItem } from "@/components/layout";
 import { roles } from "@/constants";
+import { useCheckToken } from "@/hooks";
 import { logOut, setRole } from "@/rtk/features/authSlice";
 import { RootState } from "@/rtk/store";
 import { useGetUserRoleQuery } from "@/services/auth";
 import { paths } from "@/utils/paths";
 
 export const Header = () => {
-  const { accessToken, role } = useSelector((state: RootState) => state.auth);
+  useCheckToken();
+
+  const { isTokenValid } = useSelector((state: RootState) => state.auth);
+  const { role } = useSelector((state: RootState) => state.auth);
   const { data, isLoading } = useGetUserRoleQuery();
 
   const router = useRouter();
   const dispatch = useDispatch();
 
-  // ----------------- must be removed later
-  const state = useSelector((state: RootState) => state.auth);
   useEffect(() => {
-    console.log("auth state:");
-    console.log(state);
-  }, [state]);
-  // -----------------
-
-  useEffect(() => {
-    if (data && accessToken) {
+    if (data && isTokenValid) {
       dispatch(setRole({ role: data.role }));
     }
-  }, [accessToken, data, dispatch]);
+  }, [isTokenValid, data, dispatch]);
 
   const logOutHandler = () => {
     dispatch(logOut());
@@ -56,7 +52,7 @@ export const Header = () => {
           <span className="hover:bg-grey-200 py-2 px-4 rounded">دیوار من</span>
 
           <div className="hidden group-hover:flex flex-col absolute top-5 bg-white rounded w-[200px] overflow-hidden shadow-md">
-            {accessToken && accessToken !== "" ? (
+            {isTokenValid ? (
               <>
                 {role === roles.admin && !isLoading && (
                   <HeaderItem href={paths.adminPanel()} text="پنل ادمین" />

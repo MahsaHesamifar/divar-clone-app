@@ -1,20 +1,16 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import Cookies from "js-cookie";
 
-import { baseStoreApi } from "@/services/baseStore";
-
 interface InitialStateType {
   mobile: string;
-  accessToken: string;
-  refreshToken: string;
   role: string;
+  isTokenValid: boolean;
 }
 
 const initialState: InitialStateType = {
   mobile: "",
-  accessToken: "",
-  refreshToken: "",
   role: "",
+  isTokenValid: false,
 };
 
 const authSlice = createSlice({
@@ -34,9 +30,6 @@ const authSlice = createSlice({
         payload: { accessToken, refreshToken },
       }: PayloadAction<{ accessToken: string; refreshToken: string }>
     ) => {
-      state.accessToken = accessToken;
-      state.refreshToken = refreshToken;
-
       Cookies.set("accessToken", accessToken);
       Cookies.set("refreshToken", refreshToken);
     },
@@ -46,7 +39,6 @@ const authSlice = createSlice({
       Cookies.remove("refreshToken");
       Cookies.remove("role");
 
-      baseStoreApi.util.invalidateTags(["User"]);
       return initialState;
     },
 
@@ -58,10 +50,18 @@ const authSlice = createSlice({
 
       Cookies.set("role", role);
     },
+
+    setIsTokenValid: (
+      state,
+      { payload: isTokenValid }: PayloadAction<boolean>
+    ) => {
+      state.isTokenValid = isTokenValid;
+    },
   },
   extraReducers: (builder) => {},
 });
 
-export const { setMobile, setTokens, logOut, setRole } = authSlice.actions;
+export const { setMobile, setTokens, logOut, setRole, setIsTokenValid } =
+  authSlice.actions;
 
 export default authSlice.reducer;
