@@ -1,19 +1,17 @@
-import { SubmitHandler,useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 
-import { CustomButton, InputField } from "@/components/global";
+import { CustomButton, InputField } from "@/components/elements";
 
-type Inputs = {
-  name: string;
-};
+import type { Post } from "./types";
 
 export const CreatePost = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<Post>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Post> = (data) => {
     console.log(data);
   };
   return (

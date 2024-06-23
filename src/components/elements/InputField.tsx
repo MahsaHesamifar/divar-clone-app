@@ -1,14 +1,4 @@
-import { FieldError, UseFormRegisterReturn } from "react-hook-form";
-
-interface InputFieldProps {
-  showLabel?: boolean;
-  label: string;
-  name: string;
-  error?: FieldError;
-  registration: UseFormRegisterReturn;
-  errorMessage: string;
-  isLeftToRight?: boolean;
-}
+import type { InputFieldProps } from "./types";
 
 export const InputField = ({
   label,

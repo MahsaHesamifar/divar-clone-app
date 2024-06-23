@@ -1,10 +1,6 @@
 import Link from "next/link";
 
-interface HeaderItemProps {
-  href?: string | null;
-  onClick?: () => void | null;
-  text: string;
-}
+import type { HeaderItemProps } from "./types";
 
 export const HeaderItem = ({ href, onClick, text }: HeaderItemProps) => {
   return (

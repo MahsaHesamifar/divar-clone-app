@@ -9,12 +9,8 @@ import { useRouter } from "next/navigation";
 import { setIsTokenValid } from "@/rtk/features/authSlice";
 import { useCheckRefreshTokenMutation } from "@/services/auth";
 
-interface DecodedToken {
-  mobile: string;
-  id: string;
-  iat: number;
-  exp: number;
-}
+import type { DecodedToken } from "./types";
+
 export const useCheckToken = () => {
   const [checkRefreshToken] = useCheckRefreshTokenMutation();
 

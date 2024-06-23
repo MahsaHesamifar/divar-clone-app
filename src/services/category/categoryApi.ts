@@ -1,9 +1,10 @@
 import { baseStoreApi } from "../baseStore";
-import {
+
+import type {
   CreateCategoryReq,
   CreateCategoryRes,
   GetCategoriesRes,
-} from "../category";
+} from "./types";
 
 export const categoryApi = baseStoreApi.injectEndpoints({
   endpoints: (builder) => ({

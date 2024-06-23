@@ -2,18 +2,11 @@
 
 import { SubmitHandler, useForm } from "react-hook-form";
 
-import { CustomButton, InputField } from "@/components/global";
+import { CustomButton, InputField } from "@/components/elements";
 import { steps } from "@/constants";
 import { useSendOtpMutation } from "@/services/auth";
 
-interface SendOtpProps {
-  setStep: React.Dispatch<React.SetStateAction<string>>;
-  setMobile: React.Dispatch<React.SetStateAction<string>>;
-}
-
-type Inputs = {
-  mobile: string;
-};
+import type { SendOtpInputTypes, SendOtpProps } from "./types";
 
 export const SendOtp = ({ setStep, setMobile }: SendOtpProps) => {
   const [sendOtp, { isLoading }] = useSendOtpMutation();
@@ -22,9 +15,9 @@ export const SendOtp = ({ setStep, setMobile }: SendOtpProps) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<SendOtpInputTypes>();
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<SendOtpInputTypes> = async (data) => {
     try {
       const result = await sendOtp({ mobile: data.mobile });
       if (result.data) {

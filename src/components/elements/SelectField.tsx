@@ -1,14 +1,4 @@
-import { FieldError, UseFormRegisterReturn } from "react-hook-form";
-
-interface SelectFieldProps {
-  showLabel?: boolean;
-  label: string;
-  name: string;
-  error?: FieldError;
-  registration: UseFormRegisterReturn;
-  errorMessage: string;
-  options: string[];
-}
+import type { SelectFieldProps } from "./types";
 
 export const SelectField = ({
   label,

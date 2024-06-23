@@ -4,17 +4,11 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
-import { CustomButton, InputField } from "@/components/global";
+import { CustomButton, InputField } from "@/components/elements";
 import { useCheckOtpMutation } from "@/services/auth";
 import { paths } from "@/utils/paths";
 
-interface CheckOtpProps {
-  mobile: string;
-}
-
-type Inputs = {
-  code: string;
-};
+import type { CheckOtpInputTypes, CheckOtpProps } from "./types";
 
 export const CheckOtp = ({ mobile }: CheckOtpProps) => {
   const [checkOtp, { isLoading }] = useCheckOtpMutation();
@@ -25,9 +19,9 @@ export const CheckOtp = ({ mobile }: CheckOtpProps) => {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<CheckOtpInputTypes>();
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<CheckOtpInputTypes> = async (data) => {
     try {
       const result = await checkOtp({
         mobile,

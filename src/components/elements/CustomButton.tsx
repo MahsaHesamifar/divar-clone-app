@@ -1,9 +1,4 @@
-interface CustomButtonProps {
-  isLoading?: boolean;
-  type?: "button" | "submit" | "reset" | undefined;
-  text: string;
-  clickHandler?: () => {};
-}
+import type { CustomButtonProps } from "./types";
 
 export const CustomButton = ({
   isLoading,

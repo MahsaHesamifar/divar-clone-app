@@ -9,7 +9,7 @@ import { RootState } from "@/rtk/store";
 import { useGetUserRoleQuery } from "@/services/auth";
 import { paths } from "@/utils/paths";
 
-type useAuthorizeType = string[];
+import type { useAuthorizeType } from "./types";
 
 // Why this code is needed: the user might change their role manually, in this case, they must be denied access to protected pages
 export const useAuthorize = (requiredRoles: useAuthorizeType) => {
