@@ -4,8 +4,9 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
+import { useRouter } from "next/navigation";
 
-import { logOut, setIsTokenValid, setTokens } from "@/rtk/features/authSlice";
+import { setIsTokenValid } from "@/rtk/features/authSlice";
 import { useCheckRefreshTokenMutation } from "@/services/auth";
 
 interface DecodedToken {
@@ -18,27 +19,33 @@ export const useCheckToken = () => {
   const [checkRefreshToken] = useCheckRefreshTokenMutation();
 
   const dispatch = useDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     const maxRetries = 3;
     let retryCount = 0;
 
+    const logOut = () => {
+      Cookies.remove("accessToken");
+      Cookies.remove("refreshToken");
+      Cookies.remove("role");
+
+      dispatch(setIsTokenValid(false));
+    };
+
     const getNewTokens = async () => {
       const refreshToken = Cookies.get("refreshToken") as string;
 
-      console.log("gettingNewTokens");
+      console.log("getting New Tokens");
 
       try {
         const result = await checkRefreshToken({
           refreshToken,
         });
         if (result.data) {
-          dispatch(
-            setTokens({
-              accessToken: result.data.accessToken,
-              refreshToken: result.data.refreshToken,
-            })
-          );
+          Cookies.set("accessToken", result.data.accessToken);
+          Cookies.set("refreshToken", result.data.refreshToken);
+
           dispatch(setIsTokenValid(true));
           retryCount = 0;
         } else {
@@ -54,7 +61,7 @@ export const useCheckToken = () => {
       retryCount += 1;
       if (retryCount >= maxRetries) {
         console.log("Maximum retries reached -> logging out");
-        dispatch(logOut());
+        logOut();
       }
     };
 
@@ -91,6 +98,6 @@ export const useCheckToken = () => {
     const intervalId = setInterval(checkToken, 5 * 1000);
     checkToken();
 
-    return () => clearInterval(intervalId); // Cleanup interval on component unmount
-  }, [checkRefreshToken, dispatch]);
+    return () => clearInterval(intervalId);
+  }, [checkRefreshToken, dispatch, router]);
 };

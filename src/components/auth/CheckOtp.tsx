@@ -1,26 +1,25 @@
 "use client";
 
-import { SubmitHandler,useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { SubmitHandler, useForm } from "react-hook-form";
+import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
-import { CustomButton,InputField } from "@/components/global";
-import { setTokens } from "@/rtk/features/authSlice";
-import { RootState } from "@/rtk/store";
+import { CustomButton, InputField } from "@/components/global";
 import { useCheckOtpMutation } from "@/services/auth";
 import { paths } from "@/utils/paths";
+
+interface CheckOtpProps {
+  mobile: string;
+}
 
 type Inputs = {
   code: string;
 };
 
-export const CheckOtp = () => {
+export const CheckOtp = ({ mobile }: CheckOtpProps) => {
   const [checkOtp, { isLoading }] = useCheckOtpMutation();
 
-  const mobile = useSelector((state: RootState) => state.auth.mobile);
-
   const router = useRouter();
-  const dispatch = useDispatch();
 
   const {
     register,
@@ -35,13 +34,8 @@ export const CheckOtp = () => {
         code: data.code,
       });
       if (result.data) {
-        dispatch(
-          setTokens({
-            accessToken: result.data.accessToken,
-            refreshToken: result.data.refreshToken,
-          })
-        );
-
+        Cookies.set("accessToken", result.data.accessToken);
+        Cookies.set("refreshToken", result.data.refreshToken);
         router.push(paths.home());
       }
     } catch (err) {

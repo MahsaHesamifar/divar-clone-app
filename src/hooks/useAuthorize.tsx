@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import Cookies from "js-cookie";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { RootState } from "@/rtk/store";
@@ -12,7 +13,11 @@ type useAuthorizeType = string[];
 
 // Why this code is needed: the user might change their role manually, in this case, they must be denied access to protected pages
 export const useAuthorize = (requiredRoles: useAuthorizeType) => {
-  const { data, error, isLoading } = useGetUserRoleQuery();
+  const { data, error, isLoading } = useGetUserRoleQuery("", {
+    refetchOnMountOrArgChange: true,
+    refetchOnReconnect: true,
+  });
+
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -41,9 +46,10 @@ export const useAuthorize = (requiredRoles: useAuthorizeType) => {
     if (error) redirectToUnauthorized();
     else if (!isLoading && data) {
       const { role } = data;
+      Cookies.set("role", role);
       if (!requiredRoles.includes(role)) {
         redirectToUnauthorized();
       }
     }
-  }, [data, isLoading, router, requiredRoles, error, attemptedUrl]);
+  }, [isLoading, router, requiredRoles, error, data, attemptedUrl]);
 };

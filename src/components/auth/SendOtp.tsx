@@ -1,24 +1,21 @@
 "use client";
 
-import { SubmitHandler,useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { SubmitHandler, useForm } from "react-hook-form";
 
-import { CustomButton,InputField } from "@/components/global";
+import { CustomButton, InputField } from "@/components/global";
 import { steps } from "@/constants";
-import { setMobile } from "@/rtk/features/authSlice";
 import { useSendOtpMutation } from "@/services/auth";
 
 interface SendOtpProps {
-  step: string;
   setStep: React.Dispatch<React.SetStateAction<string>>;
+  setMobile: React.Dispatch<React.SetStateAction<string>>;
 }
 
 type Inputs = {
   mobile: string;
 };
 
-export const SendOtp = ({ step, setStep }: SendOtpProps) => {
-  const dispatch = useDispatch();
+export const SendOtp = ({ setStep, setMobile }: SendOtpProps) => {
   const [sendOtp, { isLoading }] = useSendOtpMutation();
 
   const {
@@ -31,7 +28,7 @@ export const SendOtp = ({ step, setStep }: SendOtpProps) => {
     try {
       const result = await sendOtp({ mobile: data.mobile });
       if (result.data) {
-        dispatch(setMobile({ mobile: data.mobile }));
+        setMobile(data.mobile);
         setStep(steps.check);
         //TODO: display success message!
         console.log(result.data);

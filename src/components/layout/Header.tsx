@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -9,7 +10,7 @@ import { useRouter } from "next/navigation";
 import { HeaderItem } from "@/components/layout";
 import { roles } from "@/constants";
 import { useCheckToken } from "@/hooks";
-import { logOut, setRole } from "@/rtk/features/authSlice";
+import { setIsTokenValid } from "@/rtk/features/authSlice";
 import { RootState } from "@/rtk/store";
 import { useGetUserRoleQuery } from "@/services/auth";
 import { paths } from "@/utils/paths";
@@ -18,20 +19,29 @@ export const Header = () => {
   useCheckToken();
 
   const { isTokenValid } = useSelector((state: RootState) => state.auth);
-  const { role } = useSelector((state: RootState) => state.auth);
-  const { data, isLoading } = useGetUserRoleQuery();
+  const { data, isLoading } = useGetUserRoleQuery("", {
+    refetchOnMountOrArgChange: true,
+    refetchOnReconnect: true,
+  });
 
   const router = useRouter();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (data && isTokenValid) {
-      dispatch(setRole({ role: data.role }));
+    if (!isLoading) {
+      if (data && isTokenValid) {
+        const { role } = data;
+        Cookies.set("role", role);
+      }
     }
-  }, [isTokenValid, data, dispatch]);
+  }, [isTokenValid, data, isLoading]);
 
   const logOutHandler = () => {
-    dispatch(logOut());
+    Cookies.remove("accessToken");
+    Cookies.remove("refreshToken");
+    Cookies.remove("role");
+
+    dispatch(setIsTokenValid(false));
 
     router.push(paths.home());
   };
@@ -54,7 +64,7 @@ export const Header = () => {
           <div className="hidden group-hover:flex flex-col absolute top-5 bg-white rounded w-[200px] overflow-hidden shadow-md">
             {isTokenValid ? (
               <>
-                {role === roles.admin && !isLoading && (
+                {data && data?.role === roles.admin && !isLoading && (
                   <HeaderItem href={paths.adminPanel()} text="پنل ادمین" />
                 )}
                 <HeaderItem href={paths.userPanel()} text={"پنل کاربر"} />

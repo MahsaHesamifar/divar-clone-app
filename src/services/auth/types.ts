@@ -27,4 +27,5 @@ export interface CheckTokenRes {
 
 export interface GetUserRoleRes {
   role: string;
+  mobile: string;
 }

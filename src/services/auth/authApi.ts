@@ -41,10 +41,11 @@ export const authApi = baseStoreApi.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
-    getUserRole: builder.query<GetUserRoleRes, void>({
+    getUserRole: builder.query({
       query: () => "user/whoami",
 
-      providesTags: ["User"],
+      // providesTags: ["User"],
+      keepUnusedDataFor: 0,
     }),
   }),
 });
