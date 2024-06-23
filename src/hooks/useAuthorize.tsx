@@ -13,7 +13,7 @@ type useAuthorizeType = string[];
 
 // Why this code is needed: the user might change their role manually, in this case, they must be denied access to protected pages
 export const useAuthorize = (requiredRoles: useAuthorizeType) => {
-  const { data, error, isLoading } = useGetUserRoleQuery("", {
+  const { data, error, isLoading } = useGetUserRoleQuery(undefined, {
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
   });

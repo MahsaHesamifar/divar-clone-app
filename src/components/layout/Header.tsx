@@ -19,7 +19,7 @@ export const Header = () => {
   useCheckToken();
 
   const { isTokenValid } = useSelector((state: RootState) => state.auth);
-  const { data, isLoading } = useGetUserRoleQuery("", {
+  const { data, isLoading } = useGetUserRoleQuery(undefined, {
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
   });
