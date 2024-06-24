@@ -42,7 +42,7 @@ export const authApi = baseStoreApi.injectEndpoints({
       }),
       invalidatesTags: ["User"],
     }),
-    getUserRole: builder.query<GetUserRoleRes, undefined>({
+    getUserRole: builder.query<GetUserRoleRes, void>({
       query: () => "user/whoami",
 
       keepUnusedDataFor: 0,
@@ -55,4 +55,5 @@ export const {
   useCheckOtpMutation,
   useCheckRefreshTokenMutation,
   useGetUserRoleQuery,
+  useLazyGetUserRoleQuery,
 } = authApi;

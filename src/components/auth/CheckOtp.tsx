@@ -4,13 +4,14 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { CustomButton, InputField } from "@/components/elements";
-import { useCheckOtpMutation } from "@/services/auth";
-import { paths, setTokens } from "@/utils";
+import { useCheckOtpMutation, useLazyGetUserRoleQuery } from "@/services/auth";
+import { paths, setRole, setTokens } from "@/utils";
 
 import type { CheckOtpInputTypes, CheckOtpProps } from "./types";
 
 export const CheckOtp = ({ mobile }: CheckOtpProps) => {
   const [checkOtp, { isLoading }] = useCheckOtpMutation();
+  const [triggerGetUserRole] = useLazyGetUserRoleQuery();
 
   const router = useRouter();
 
@@ -20,18 +21,25 @@ export const CheckOtp = ({ mobile }: CheckOtpProps) => {
     formState: { errors },
   } = useForm<CheckOtpInputTypes>();
 
-  const onSubmit: SubmitHandler<CheckOtpInputTypes> = async (data) => {
+  const onSubmit: SubmitHandler<CheckOtpInputTypes> = async (values) => {
     try {
       const result = await checkOtp({
         mobile,
-        code: data.code,
+        code: values.code,
       });
       if (result.data) {
         setTokens({
           accessToken: result.data.accessToken,
           refreshToken: result.data.refreshToken,
         });
-        router.push(paths.home());
+
+        const roleResult = await triggerGetUserRole().unwrap();
+        if (roleResult) {
+          setRole(roleResult.role);
+          router.push(paths.userPanel());
+        } else {
+          throw "something went wrong!";
+        }
       }
     } catch (err) {
       throw err;

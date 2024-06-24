@@ -23,7 +23,6 @@ export const SendOtp = ({ setStep, setMobile }: SendOtpProps) => {
       if (result.data) {
         setMobile(data.mobile);
         setStep(steps.check);
-        //TODO: display success message!
         console.log(result.data);
       }
     } catch (err) {

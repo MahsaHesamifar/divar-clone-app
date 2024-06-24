@@ -4,7 +4,6 @@ import { CreatePost } from "@/components/dashboard";
 import { roles } from "@/constants";
 import { useAuthorize } from "@/hooks";
 
-// TODO: create post + show user posts
 export default function UserPanel() {
   useAuthorize([roles.user, roles.admin]);
   return (
