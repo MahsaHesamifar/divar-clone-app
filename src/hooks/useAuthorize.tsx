@@ -6,18 +6,11 @@ import Cookies from "js-cookie";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { RootState } from "@/rtk/store";
-import { useGetUserRoleQuery } from "@/services/auth";
 import { paths, setRole } from "@/utils";
 
 import type { useAuthorizeType } from "./types";
 
-// Why this code is needed: the user might change their role manually, in this case, they must be denied access to protected pages
 export const useAuthorize = (requiredRoles: useAuthorizeType) => {
-  const { data, error, isLoading } = useGetUserRoleQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-    refetchOnReconnect: true,
-  });
-
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -30,13 +23,8 @@ export const useAuthorize = (requiredRoles: useAuthorizeType) => {
   useEffect(() => {
     const refreshToken = Cookies.get("refreshToken");
     const accessToken = Cookies.get("accessToken");
+    const role = Cookies.get("role");
 
-    if (!accessToken && !refreshToken && !isTokenValid)
-      router.push(paths.auth());
-    return;
-  }, [isTokenValid, router]);
-
-  useEffect(() => {
     const redirectToUnauthorized = () => {
       router.push(
         `${paths.unauthorized()}?attemptedUrl=${encodeURIComponent(
@@ -45,13 +33,14 @@ export const useAuthorize = (requiredRoles: useAuthorizeType) => {
       );
     };
 
-    if (error) redirectToUnauthorized();
-    else if (!isLoading && data) {
-      const { role } = data;
+    if (!accessToken && !refreshToken && !isTokenValid) {
+      router.push(paths.auth());
+    } else if (!role) redirectToUnauthorized();
+    else {
       setRole(role);
       if (!requiredRoles.includes(role)) {
         redirectToUnauthorized();
       }
     }
-  }, [isLoading, router, requiredRoles, error, data, attemptedUrl]);
+  }, [router, requiredRoles, attemptedUrl, isTokenValid]);
 };
