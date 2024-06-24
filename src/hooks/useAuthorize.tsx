@@ -6,9 +6,9 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { paths, setRole } from "@/utils";
 
-import type { useAuthorizeType } from "./types";
+import type { UseAuthorizeType } from "./types";
 
-export const useAuthorize = (requiredRoles: useAuthorizeType) => {
+export const useAuthorize = (requiredRoles: UseAuthorizeType) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();

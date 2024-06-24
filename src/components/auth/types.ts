@@ -1,10 +1,12 @@
+import type { Dispatch, SetStateAction } from "react";
+
 export interface CheckOtpProps {
   mobile: string;
 }
 
 export interface SendOtpProps {
-  setStep: React.Dispatch<React.SetStateAction<string>>;
-  setMobile: React.Dispatch<React.SetStateAction<string>>;
+  setStep: Dispatch<SetStateAction<string>>;
+  setMobile: Dispatch<SetStateAction<string>>;
 }
 
 export interface CheckOtpInputTypes {

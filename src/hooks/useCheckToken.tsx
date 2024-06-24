@@ -8,9 +8,9 @@ import { useRouter } from "next/navigation";
 import { useCheckRefreshTokenMutation } from "@/services/auth";
 import { destroyTokens, setTokens } from "@/utils";
 
-import type { DecodedToken, useCheckTokenProps } from "./types";
+import type { DecodedToken, UseCheckTokenProps } from "./types";
 
-export const useCheckToken = (setIsTokenValid: useCheckTokenProps) => {
+export const useCheckToken = (setIsTokenValid: UseCheckTokenProps) => {
   const [checkRefreshToken] = useCheckRefreshTokenMutation();
 
   const router = useRouter();

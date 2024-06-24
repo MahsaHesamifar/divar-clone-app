@@ -19,8 +19,8 @@ export const Header = () => {
 
   const { data, isLoading } = useGetUserRoleQuery(undefined, {
     skip: !isTokenValid,
-    refetchOnMountOrArgChange: true,
-    refetchOnReconnect: true,
+    // refetchOnMountOrArgChange: true,
+    // refetchOnReconnect: true,
   });
 
   useEffect(() => {

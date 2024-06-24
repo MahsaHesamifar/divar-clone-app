@@ -1,6 +1,8 @@
-export type useAuthorizeType = string[];
+import { Dispatch, SetStateAction } from "react";
 
-export type useCheckTokenProps = React.Dispatch<React.SetStateAction<boolean>>;
+export type UseAuthorizeType = string[];
+
+export type UseCheckTokenProps = Dispatch<SetStateAction<boolean>>;
 
 export interface DecodedToken {
   mobile: string;

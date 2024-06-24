@@ -1,4 +1,4 @@
-import { FieldError, UseFormRegisterReturn } from "react-hook-form";
+import type { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
 export interface CustomButtonProps {
   isLoading?: boolean;

@@ -18,5 +18,5 @@ export const baseStoreApi = createApi({
 
   tagTypes: ["User", "Category"],
 
-  endpoints: (builder) => ({}),
+  endpoints: () => ({}),
 });
