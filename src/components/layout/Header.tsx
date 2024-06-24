@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -9,23 +8,20 @@ import { useRouter } from "next/navigation";
 import { HeaderItem } from "@/components/layout";
 import { roles } from "@/constants";
 import { useCheckToken } from "@/hooks";
-import { setIsTokenValid } from "@/rtk/features/authSlice";
-import { RootState } from "@/rtk/store";
 import { useGetUserRoleQuery } from "@/services/auth";
 import { destroyTokens, paths, setRole } from "@/utils";
 
 export const Header = () => {
-  useCheckToken();
+  const [isTokenValid, setIsTokenValid] = useState(false);
+  const router = useRouter();
 
-  const { isTokenValid } = useSelector((state: RootState) => state.auth);
+  useCheckToken(setIsTokenValid);
+
   const { data, isLoading } = useGetUserRoleQuery(undefined, {
     skip: !isTokenValid,
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
   });
-
-  const router = useRouter();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!isLoading) {
@@ -39,7 +35,7 @@ export const Header = () => {
   const logOutHandler = () => {
     destroyTokens();
 
-    dispatch(setIsTokenValid(false));
+    setIsTokenValid(false);
 
     router.push(paths.home());
   };

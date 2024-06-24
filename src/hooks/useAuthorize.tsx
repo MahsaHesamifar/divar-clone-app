@@ -1,11 +1,9 @@
 "use client";
 
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import Cookies from "js-cookie";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-import { RootState } from "@/rtk/store";
 import { paths, setRole } from "@/utils";
 
 import type { useAuthorizeType } from "./types";
@@ -17,8 +15,6 @@ export const useAuthorize = (requiredRoles: useAuthorizeType) => {
 
   const attemptedUrl =
     pathname + (searchParams.toString() ? `?${searchParams.toString()}` : "");
-
-  const { isTokenValid } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     const refreshToken = Cookies.get("refreshToken");
@@ -33,7 +29,7 @@ export const useAuthorize = (requiredRoles: useAuthorizeType) => {
       );
     };
 
-    if (!accessToken && !refreshToken && !isTokenValid) {
+    if (!accessToken && !refreshToken) {
       router.push(paths.auth());
     } else if (!role) redirectToUnauthorized();
     else {
@@ -42,5 +38,5 @@ export const useAuthorize = (requiredRoles: useAuthorizeType) => {
         redirectToUnauthorized();
       }
     }
-  }, [router, requiredRoles, attemptedUrl, isTokenValid]);
+  }, [router, requiredRoles, attemptedUrl]);
 };
