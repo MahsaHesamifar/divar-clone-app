@@ -2,7 +2,6 @@
 
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -13,7 +12,7 @@ import { useCheckToken } from "@/hooks";
 import { setIsTokenValid } from "@/rtk/features/authSlice";
 import { RootState } from "@/rtk/store";
 import { useGetUserRoleQuery } from "@/services/auth";
-import { paths } from "@/utils/paths";
+import { destroyTokens, paths, setRole } from "@/utils";
 
 export const Header = () => {
   useCheckToken();
@@ -31,15 +30,13 @@ export const Header = () => {
     if (!isLoading) {
       if (data && isTokenValid) {
         const { role } = data;
-        Cookies.set("role", role);
+        setRole(role);
       }
     }
   }, [isTokenValid, data, isLoading]);
 
   const logOutHandler = () => {
-    Cookies.remove("accessToken");
-    Cookies.remove("refreshToken");
-    Cookies.remove("role");
+    destroyTokens();
 
     dispatch(setIsTokenValid(false));
 

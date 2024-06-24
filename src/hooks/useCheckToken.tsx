@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 
 import { setIsTokenValid } from "@/rtk/features/authSlice";
 import { useCheckRefreshTokenMutation } from "@/services/auth";
+import { destroyTokens, setTokens } from "@/utils";
 
 import type { DecodedToken } from "./types";
 
@@ -22,9 +23,7 @@ export const useCheckToken = () => {
     let retryCount = 0;
 
     const logOut = () => {
-      Cookies.remove("accessToken");
-      Cookies.remove("refreshToken");
-      Cookies.remove("role");
+      destroyTokens();
 
       dispatch(setIsTokenValid(false));
     };
@@ -39,8 +38,10 @@ export const useCheckToken = () => {
           refreshToken,
         });
         if (result.data) {
-          Cookies.set("accessToken", result.data.accessToken);
-          Cookies.set("refreshToken", result.data.refreshToken);
+          setTokens({
+            accessToken: result.data.accessToken,
+            refreshToken: result.data.refreshToken,
+          });
 
           dispatch(setIsTokenValid(true));
           retryCount = 0;

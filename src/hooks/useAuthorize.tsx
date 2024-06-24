@@ -7,7 +7,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { RootState } from "@/rtk/store";
 import { useGetUserRoleQuery } from "@/services/auth";
-import { paths } from "@/utils/paths";
+import { paths, setRole } from "@/utils";
 
 import type { useAuthorizeType } from "./types";
 
@@ -48,7 +48,7 @@ export const useAuthorize = (requiredRoles: useAuthorizeType) => {
     if (error) redirectToUnauthorized();
     else if (!isLoading && data) {
       const { role } = data;
-      Cookies.set("role", role);
+      setRole(role);
       if (!requiredRoles.includes(role)) {
         redirectToUnauthorized();
       }

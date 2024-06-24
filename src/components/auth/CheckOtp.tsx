@@ -1,12 +1,11 @@
 "use client";
 
 import { SubmitHandler, useForm } from "react-hook-form";
-import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
 import { CustomButton, InputField } from "@/components/elements";
 import { useCheckOtpMutation } from "@/services/auth";
-import { paths } from "@/utils/paths";
+import { paths, setTokens } from "@/utils";
 
 import type { CheckOtpInputTypes, CheckOtpProps } from "./types";
 
@@ -28,8 +27,10 @@ export const CheckOtp = ({ mobile }: CheckOtpProps) => {
         code: data.code,
       });
       if (result.data) {
-        Cookies.set("accessToken", result.data.accessToken);
-        Cookies.set("refreshToken", result.data.refreshToken);
+        setTokens({
+          accessToken: result.data.accessToken,
+          refreshToken: result.data.refreshToken,
+        });
         router.push(paths.home());
       }
     } catch (err) {
