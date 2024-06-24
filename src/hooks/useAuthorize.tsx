@@ -28,10 +28,12 @@ export const useAuthorize = (requiredRoles: useAuthorizeType) => {
   const { isTokenValid } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
-    if (!isTokenValid) {
+    const refreshToken = Cookies.get("refreshToken");
+    const accessToken = Cookies.get("accessToken");
+
+    if (!accessToken && !refreshToken && !isTokenValid)
       router.push(paths.auth());
-      return;
-    }
+    return;
   }, [isTokenValid, router]);
 
   useEffect(() => {

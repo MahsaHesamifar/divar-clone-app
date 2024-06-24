@@ -8,6 +8,8 @@ const protectedRoutes = [paths.adminPanel(), paths.userPanel()];
 
 export async function middleware(request: NextRequest) {
   const accessToken = request.cookies.get("accessToken")?.value;
+  const refreshToken = request.cookies.get("refreshToken")?.value;
+
   const userRole = request.cookies.get("role")?.value;
 
   const isAuthRoute = request.nextUrl.pathname.startsWith(paths.auth());
@@ -20,7 +22,7 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(paths.userPanel(), request.url));
   }
 
-  if (isProtectedRoute && !accessToken) {
+  if (isProtectedRoute && !accessToken && !refreshToken) {
     return NextResponse.redirect(new URL(paths.auth(), request.url));
   }
 
