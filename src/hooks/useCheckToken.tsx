@@ -32,25 +32,29 @@ export const useCheckToken = () => {
       const refreshToken = Cookies.get("refreshToken") as string;
 
       console.log("getting New Tokens");
-
-      try {
-        const result = await checkRefreshToken({
-          refreshToken,
-        });
-        if (result.data) {
-          setTokens({
-            accessToken: result.data.accessToken,
-            refreshToken: result.data.refreshToken,
+      if (refreshToken) {
+        try {
+          const result = await checkRefreshToken({
+            refreshToken,
           });
+          if (result.data) {
+            setTokens({
+              accessToken: result.data.accessToken,
+              refreshToken: result.data.refreshToken,
+            });
 
-          dispatch(setIsTokenValid(true));
-          retryCount = 0;
-        } else {
+            dispatch(setIsTokenValid(true));
+            retryCount = 0;
+          } else {
+            handleRetry();
+          }
+        } catch (err) {
           handleRetry();
+          throw err;
         }
-      } catch (err) {
-        handleRetry();
-        throw err;
+      } else {
+        console.log("No refresh token -> logged out");
+        logOut();
       }
     };
 
@@ -64,21 +68,27 @@ export const useCheckToken = () => {
 
     const checkToken = (): void => {
       const token = Cookies.get("accessToken");
+
       if (token) {
-        const decoded: DecodedToken = jwtDecode(token);
-        if (decoded.exp) {
-          const currentTime = Date.now();
-          const expTime = decoded.exp * 1000;
+        try {
+          const decoded: DecodedToken = jwtDecode(token);
+          if (decoded.exp) {
+            const currentTime = Date.now();
+            const expTime = decoded.exp * 1000;
 
-          const timeLeft = expTime - currentTime;
+            const timeLeft = expTime - currentTime;
 
-          if (timeLeft > 5 * 1000) {
-            console.log("token is valid");
-            dispatch(setIsTokenValid(true));
-          } else {
-            console.log("token expired -> getNewTokens");
-            getNewTokens();
+            if (timeLeft > 5 * 1000) {
+              console.log("token is valid");
+              dispatch(setIsTokenValid(true));
+            } else {
+              console.log("token expired -> getNewTokens");
+              getNewTokens();
+            }
           }
+        } catch (error) {
+          console.log("token can't be decoded -> getNewTokens");
+          getNewTokens();
         }
       } else {
         const refreshToken = Cookies.get("refreshToken") as string;
@@ -86,7 +96,7 @@ export const useCheckToken = () => {
           console.log("No accessToken -> getNewTokens");
           getNewTokens();
         } else {
-          console.log("logged out");
+          console.log("No accessToken and no refreshToken -> logged out");
           logOut();
         }
       }
