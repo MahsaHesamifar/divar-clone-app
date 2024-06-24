@@ -1,40 +1,16 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import {
-  FLUSH,
-  PAUSE,
-  PERSIST,
-  persistReducer,
-  persistStore,
-  PURGE,
-  REGISTER,
-  REHYDRATE,
-} from "redux-persist";
-import storage from "redux-persist/lib/storage";
 
 import { baseStoreApi } from "@/services/baseStore";
-
-const persistConfig = {
-  key: "root",
-  storage,
-};
 
 const rootReducer = combineReducers({
   [baseStoreApi.reducerPath]: baseStoreApi.reducer,
 });
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
-
-export const makeStore = configureStore({
-  reducer: persistedReducer,
-  devTools: process.env.NODE_ENV !== "production",
+export const store = configureStore({
+  reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }).concat(baseStoreApi.middleware),
+    getDefaultMiddleware().concat(baseStoreApi.middleware),
 });
 
-export type RootState = ReturnType<typeof makeStore.getState>;
-export type AppDispatch = typeof makeStore.dispatch;
-export const persistor = persistStore(makeStore);
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
