@@ -59,7 +59,12 @@ export const Header = () => {
                   <HeaderItem href={paths.adminPanel()} text="پنل ادمین" />
                 )}
                 <HeaderItem href={paths.userPanel()} text={"پنل کاربر"} />
-                <HeaderItem onClick={logOutHandler} text={"خروج"} />
+                <button
+                  onClick={logOutHandler}
+                  className="p-4 text-right hover:bg-grey-100"
+                >
+                  خروج
+                </button>
               </>
             ) : (
               <HeaderItem href={paths.auth()} text={"ورود"} />
