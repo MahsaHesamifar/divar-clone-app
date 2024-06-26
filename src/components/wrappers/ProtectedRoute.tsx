@@ -6,9 +6,12 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 import { paths, setRole } from "@/utils";
 
-import type { UseAuthorizeType } from "./types";
+import type { ProtectedRouteProps } from "./types";
 
-export const useAuthorize = (requiredRoles: UseAuthorizeType) => {
+export const ProtectedRoute = ({
+  authorizedRoles,
+  children,
+}: ProtectedRouteProps) => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -34,9 +37,11 @@ export const useAuthorize = (requiredRoles: UseAuthorizeType) => {
     } else if (!role) redirectToUnauthorized();
     else {
       setRole(role);
-      if (!requiredRoles.includes(role)) {
+      if (!authorizedRoles.includes(role)) {
         redirectToUnauthorized();
       }
     }
-  }, [router, requiredRoles, attemptedUrl]);
+  }, [router, authorizedRoles, attemptedUrl]);
+
+  return <>{children}</>;
 };

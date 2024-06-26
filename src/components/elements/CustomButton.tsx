@@ -7,11 +7,16 @@ export const CustomButton = ({
   clickHandler,
 }: CustomButtonProps) => {
   return (
-    <>
+    <button
+      type={type ? type : "button"}
+      className="bg-primary hover:bg-primary/80 rounded py-2 px-4 text-white disabled:cursor-wait"
+      onClick={clickHandler}
+      disabled={isLoading}
+    >
       {isLoading ? (
         <svg
           aria-hidden="true"
-          className="inline w-8 h-8 text-grey-200 animate-spin dark:text-grey-200 fill-primary"
+          className="inline w-5 h-5 text-grey-200 animate-spin fill-primary"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -26,14 +31,8 @@ export const CustomButton = ({
           />
         </svg>
       ) : (
-        <button
-          type={type ? type : "button"}
-          className="bg-primary hover:bg-primary/80 rounded py-2 px-4 text-white"
-          onClick={clickHandler}
-        >
-          {text}
-        </button>
+        text
       )}
-    </>
+    </button>
   );
 };
