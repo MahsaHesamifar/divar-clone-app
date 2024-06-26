@@ -1,17 +1,24 @@
 "use client";
 
+import { useEffect } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
 import { CustomButton, InputField } from "@/components/elements";
-import { useCheckOtpMutation } from "@/services/auth";
-import { paths } from "@/utils/paths";
+import { useCheckOtpMutation, useGetUserRoleQuery } from "@/services/auth";
+import { paths, setRole, setTokens } from "@/utils";
 
 import type { CheckOtpInputTypes, CheckOtpProps } from "./types";
 
 export const CheckOtp = ({ mobile }: CheckOtpProps) => {
+  const token = Cookies.get("accessToken");
+
   const [checkOtp, { isLoading }] = useCheckOtpMutation();
+  const { data: userRoleData, error: userRoleError } = useGetUserRoleQuery(
+    undefined,
+    { skip: !token }
+  );
 
   const router = useRouter();
 
@@ -21,16 +28,26 @@ export const CheckOtp = ({ mobile }: CheckOtpProps) => {
     formState: { errors },
   } = useForm<CheckOtpInputTypes>();
 
-  const onSubmit: SubmitHandler<CheckOtpInputTypes> = async (data) => {
+  useEffect(() => {
+    if (userRoleData) {
+      setRole(userRoleData.role);
+      router.push(paths.userPanel());
+    } else if (userRoleError) {
+      console.error("Failed to fetch user role:", userRoleError);
+    }
+  }, [userRoleData, userRoleError, router]);
+
+  const onSubmit: SubmitHandler<CheckOtpInputTypes> = async (values) => {
     try {
       const result = await checkOtp({
         mobile,
-        code: data.code,
+        code: values.code,
       });
       if (result.data) {
-        Cookies.set("accessToken", result.data.accessToken);
-        Cookies.set("refreshToken", result.data.refreshToken);
-        router.push(paths.home());
+        setTokens({
+          accessToken: result.data.accessToken,
+          refreshToken: result.data.refreshToken,
+        });
       }
     } catch (err) {
       throw err;

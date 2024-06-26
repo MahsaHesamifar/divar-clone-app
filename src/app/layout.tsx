@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 
-import { Footer,Header } from "@/components/layout";
-import StoreProvider from "@/services/StoreProvider";
+import { Footer, Header } from "@/components/layout";
+import { StoreProvider } from "@/services/StoreProvider";
+
+import type { RootLayoutProps } from "./types";
 
 import "@/styles/globals.css";
 
@@ -10,11 +12,7 @@ export const metadata: Metadata = {
   description: "Divar clone application",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
   return (
     <html lang="en" dir="rtl">
       <body className="bg-grey-100">

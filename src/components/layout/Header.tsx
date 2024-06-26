@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -10,38 +8,31 @@ import { useRouter } from "next/navigation";
 import { HeaderItem } from "@/components/layout";
 import { roles } from "@/constants";
 import { useCheckToken } from "@/hooks";
-import { setIsTokenValid } from "@/rtk/features/authSlice";
-import { RootState } from "@/rtk/store";
 import { useGetUserRoleQuery } from "@/services/auth";
-import { paths } from "@/utils/paths";
+import { destroyTokens, paths, setRole } from "@/utils";
 
 export const Header = () => {
-  useCheckToken();
-
-  const { isTokenValid } = useSelector((state: RootState) => state.auth);
-  const { data, isLoading } = useGetUserRoleQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-    refetchOnReconnect: true,
-  });
-
   const router = useRouter();
-  const dispatch = useDispatch();
+
+  const isTokenValid = useCheckToken();
+
+  const { data, isLoading } = useGetUserRoleQuery(undefined, {
+    skip: !isTokenValid,
+    // refetchOnMountOrArgChange: true,
+    // refetchOnReconnect: true,
+  });
 
   useEffect(() => {
     if (!isLoading) {
       if (data && isTokenValid) {
         const { role } = data;
-        Cookies.set("role", role);
+        setRole(role);
       }
     }
   }, [isTokenValid, data, isLoading]);
 
   const logOutHandler = () => {
-    Cookies.remove("accessToken");
-    Cookies.remove("refreshToken");
-    Cookies.remove("role");
-
-    dispatch(setIsTokenValid(false));
+    destroyTokens();
 
     router.push(paths.home());
   };
@@ -68,7 +59,12 @@ export const Header = () => {
                   <HeaderItem href={paths.adminPanel()} text="پنل ادمین" />
                 )}
                 <HeaderItem href={paths.userPanel()} text={"پنل کاربر"} />
-                <HeaderItem onClick={logOutHandler} text={"خروج"} />
+                <button
+                  onClick={logOutHandler}
+                  className="p-4 text-right hover:bg-grey-100"
+                >
+                  خروج
+                </button>
               </>
             ) : (
               <HeaderItem href={paths.auth()} text={"ورود"} />

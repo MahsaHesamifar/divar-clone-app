@@ -1,20 +1,18 @@
 "use client";
 
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 
-import { setIsTokenValid } from "@/rtk/features/authSlice";
 import { useCheckRefreshTokenMutation } from "@/services/auth";
+import { destroyTokens, setTokens } from "@/utils";
 
 import type { DecodedToken } from "./types";
 
 export const useCheckToken = () => {
+  const [isTokenValid, setIsTokenValid] = useState(false);
   const [checkRefreshToken] = useCheckRefreshTokenMutation();
-
-  const dispatch = useDispatch();
   const router = useRouter();
 
   useEffect(() => {
@@ -22,34 +20,37 @@ export const useCheckToken = () => {
     let retryCount = 0;
 
     const logOut = () => {
-      Cookies.remove("accessToken");
-      Cookies.remove("refreshToken");
-      Cookies.remove("role");
-
-      dispatch(setIsTokenValid(false));
+      destroyTokens();
+      setIsTokenValid(false);
     };
 
     const getNewTokens = async () => {
-      const refreshToken = Cookies.get("refreshToken") as string;
+      const refreshToken = Cookies.get("refreshToken");
 
       console.log("getting New Tokens");
+      if (refreshToken) {
+        try {
+          const result = await checkRefreshToken({
+            refreshToken,
+          });
+          if (result.data) {
+            setTokens({
+              accessToken: result.data.accessToken,
+              refreshToken: result.data.refreshToken,
+            });
 
-      try {
-        const result = await checkRefreshToken({
-          refreshToken,
-        });
-        if (result.data) {
-          Cookies.set("accessToken", result.data.accessToken);
-          Cookies.set("refreshToken", result.data.refreshToken);
-
-          dispatch(setIsTokenValid(true));
-          retryCount = 0;
-        } else {
+            setIsTokenValid(true);
+            retryCount = 0;
+          } else {
+            handleRetry();
+          }
+        } catch (err) {
           handleRetry();
+          throw err;
         }
-      } catch (err) {
-        handleRetry();
-        throw err;
+      } else {
+        console.log("No refresh token -> logged out");
+        logOut();
       }
     };
 
@@ -63,29 +64,35 @@ export const useCheckToken = () => {
 
     const checkToken = (): void => {
       const token = Cookies.get("accessToken");
+
       if (token) {
-        const decoded: DecodedToken = jwtDecode(token);
-        if (decoded.exp) {
-          const currentTime = Date.now();
-          const expTime = decoded.exp * 1000;
+        try {
+          const decoded: DecodedToken = jwtDecode(token);
+          if (decoded.exp) {
+            const currentTime = Date.now();
+            const expTime = decoded.exp * 1000;
 
-          const timeLeft = expTime - currentTime;
+            const timeLeft = expTime - currentTime;
 
-          if (timeLeft > 5 * 1000) {
-            console.log("token is valid");
-            dispatch(setIsTokenValid(true));
-          } else {
-            console.log("token expired -> getNewTokens");
-            getNewTokens();
+            if (timeLeft > 5 * 1000) {
+              console.log("token is valid");
+              setIsTokenValid(true);
+            } else {
+              console.log("token expired -> getNewTokens");
+              getNewTokens();
+            }
           }
+        } catch (error) {
+          console.log("token can't be decoded -> getNewTokens");
+          getNewTokens();
         }
       } else {
-        const refreshToken = Cookies.get("refreshToken") as string;
+        const refreshToken = Cookies.get("refreshToken");
         if (refreshToken) {
           console.log("No accessToken -> getNewTokens");
           getNewTokens();
         } else {
-          console.log("logged out");
+          console.log("No accessToken and no refreshToken -> logged out");
           logOut();
         }
       }
@@ -95,5 +102,7 @@ export const useCheckToken = () => {
     checkToken();
 
     return () => clearInterval(intervalId);
-  }, [checkRefreshToken, dispatch, router]);
+  }, [checkRefreshToken, router, setIsTokenValid]);
+
+  return isTokenValid;
 };
