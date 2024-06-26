@@ -55,5 +55,4 @@ export const {
   useCheckOtpMutation,
   useCheckRefreshTokenMutation,
   useGetUserRoleQuery,
-  useLazyGetUserRoleQuery,
 } = authApi;
