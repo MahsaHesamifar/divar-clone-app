@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
@@ -8,11 +8,11 @@ import { useRouter } from "next/navigation";
 import { useCheckRefreshTokenMutation } from "@/services/auth";
 import { destroyTokens, setTokens } from "@/utils";
 
-import type { DecodedToken, UseCheckTokenProps } from "./types";
+import type { DecodedToken } from "./types";
 
-export const useCheckToken = (setIsTokenValid: UseCheckTokenProps) => {
+export const useCheckToken = () => {
+  const [isTokenValid, setIsTokenValid] = useState(false);
   const [checkRefreshToken] = useCheckRefreshTokenMutation();
-
   const router = useRouter();
 
   useEffect(() => {
@@ -103,4 +103,6 @@ export const useCheckToken = (setIsTokenValid: UseCheckTokenProps) => {
 
     return () => clearInterval(intervalId);
   }, [checkRefreshToken, router, setIsTokenValid]);
+
+  return isTokenValid;
 };

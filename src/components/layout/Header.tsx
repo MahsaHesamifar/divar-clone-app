@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -12,10 +12,9 @@ import { useGetUserRoleQuery } from "@/services/auth";
 import { destroyTokens, paths, setRole } from "@/utils";
 
 export const Header = () => {
-  const [isTokenValid, setIsTokenValid] = useState(false);
   const router = useRouter();
 
-  useCheckToken(setIsTokenValid);
+  const isTokenValid = useCheckToken();
 
   const { data, isLoading } = useGetUserRoleQuery(undefined, {
     skip: !isTokenValid,
@@ -34,8 +33,6 @@ export const Header = () => {
 
   const logOutHandler = () => {
     destroyTokens();
-
-    setIsTokenValid(false);
 
     router.push(paths.home());
   };
