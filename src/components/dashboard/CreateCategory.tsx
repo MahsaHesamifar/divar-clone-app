@@ -1,4 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import { CustomButton, InputField, SelectField } from "@/components/elements";
 import { iconOptions } from "@/constants";
@@ -15,18 +16,18 @@ export const CreateCategory = () => {
   } = useForm<Category>();
 
   const onSubmit: SubmitHandler<Category> = async (data) => {
-    const { name, slug, icon, parent } = data;
+    const { name, slug, icon } = data;
     try {
       const result = await createCategory({
         name,
         slug,
         icon,
-        parent,
       });
       if (result.data) {
-        console.log(result.data);
+        toast.success(result.data.message ?? "Category created successfuly");
       }
     } catch (err) {
+      toast.error("Something went wrong");
       throw err;
     }
   };
@@ -61,18 +62,9 @@ export const CreateCategory = () => {
         label="آیکون * "
         name="icon"
         registration={register("icon")}
-        error={errors.parent}
+        error={errors.icon}
         errorMessage={"لطفا آیکون را به درستی انتخاب نمایید"}
         options={iconOptions}
-      />
-
-      <InputField
-        showLabel={true}
-        label="پدر"
-        name="parent"
-        registration={register("parent", {})}
-        error={errors.parent}
-        errorMessage="لطفا پدر را به درستی وارد نمایید"
       />
 
       <hr className="border border-grey-200 mt-10 mb-5" />
