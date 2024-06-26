@@ -13,6 +13,7 @@ export const SelectField = ({
     <>
       {showLabel && <label htmlFor={name}>{label}:</label>}
       <select
+        id={name}
         className="w-full py-2 px-4 border-2 border-grey-200 rounded-lg mt-4 my-6"
         {...registration}
       >
