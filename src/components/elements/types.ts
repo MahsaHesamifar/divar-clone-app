@@ -15,6 +15,7 @@ export interface InputFieldProps {
   registration: UseFormRegisterReturn;
   errorMessage: string;
   isLeftToRight?: boolean;
+  type?: "text" | "number" | "password" | "email";
 }
 
 export interface SelectFieldProps {
@@ -24,5 +25,5 @@ export interface SelectFieldProps {
   error?: FieldError;
   registration: UseFormRegisterReturn;
   errorMessage: string;
-  options: string[];
+  options: { name: string; value: string }[];
 }

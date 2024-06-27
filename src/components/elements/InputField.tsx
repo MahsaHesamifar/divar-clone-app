@@ -8,6 +8,7 @@ export const InputField = ({
   error,
   errorMessage,
   isLeftToRight,
+  type = "text",
 }: InputFieldProps) => {
   return (
     <>
@@ -19,6 +20,7 @@ export const InputField = ({
         }`}
         dir={isLeftToRight ? "ltr" : ""}
         placeholder={label}
+        type={type}
         {...registration}
       />
       {error && <p className="text-primary mb-2">{errorMessage}</p>}
