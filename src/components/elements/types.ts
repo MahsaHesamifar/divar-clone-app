@@ -1,5 +1,7 @@
 import type { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
+import type { Post } from "@/services/post";
+
 export interface CustomButtonProps {
   isLoading?: boolean;
   type?: "button" | "submit" | "reset" | undefined;
@@ -26,4 +28,9 @@ export interface SelectFieldProps {
   registration: UseFormRegisterReturn;
   errorMessage: string;
   options: { name: string; value: string }[];
+}
+
+export interface PostBoxProps {
+  post: Post;
+  editable?: boolean;
 }

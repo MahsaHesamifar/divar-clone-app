@@ -48,9 +48,9 @@ export const CreatePost = () => {
       <p className="font-bold my-5">اطلاعات زیر را وارد کنید</p>
       <InputField
         showLabel
-        label="عنوان"
+        label="عنوان * "
         name="title"
-        registration={register("title")}
+        registration={register("title", { required: true })}
         error={errors.title}
         errorMessage="لطفا عنوان را به درستی وارد نمایید"
       />

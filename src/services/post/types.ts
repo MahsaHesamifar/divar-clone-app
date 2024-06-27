@@ -1,4 +1,5 @@
 export interface Post {
+  _id: string;
   amount: number;
   category: string;
   images: string[];
@@ -8,4 +9,12 @@ export interface Post {
 export interface GetMyPostsRes {
   posts: Post[];
   count: number;
+}
+
+export interface DeletePostRes {
+  message: string;
+}
+
+export interface DeletePostReq {
+  id: string;
 }
