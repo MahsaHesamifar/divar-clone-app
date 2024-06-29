@@ -3,8 +3,15 @@
 import React from "react";
 import Image from "next/image";
 import { notFound, useParams } from "next/navigation";
+import { Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 import { useGetPostByIdQuery } from "@/services/post";
+
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+
+import "swiper/css";
 
 export default function PostShowPage() {
   const { id } = useParams<{ id: string }>();
@@ -27,7 +34,7 @@ export default function PostShowPage() {
 
   return (
     <div className="flex flex-col items-center w-full py-20 px-5 min-h-[80vh]">
-      <div className="flex flex-col lg:flex-row lg:w-2/3">
+      <div className="flex flex-col lg:flex-row w-full lg:w-2/3">
         <div className="w-full lg:w-1/2 md:ml-10">
           <h2 className="font-bold text-2xl">{post.options.title}</h2>
           <div className="text-grey-400 py-5">{post.options.city}</div>
@@ -46,18 +53,32 @@ export default function PostShowPage() {
         </div>
 
         <div className="w-full lg:w-1/2 py-10 lg:py-0">
-          <Image
-            className="bg-grey-200 rounded object-cover w-full"
-            src={
-              post.images[0]
-                ? `${process.env.NEXT_PUBLIC_BASE_URL}${post.images[0]}`
-                : "/empty.png"
-            }
-            alt={post?.options?.title ?? "image"}
-            width={500}
-            height={500}
-            priority
-          />
+          <Swiper
+            pagination={{
+              type: "bullets",
+            }}
+            navigation={true}
+            modules={[Pagination, Navigation]}
+          >
+            {post.images.map((image, index) => {
+              return (
+                <SwiperSlide key={index}>
+                  <Image
+                    className="bg-grey-200 rounded object-cover w-full"
+                    src={
+                      image
+                        ? `${process.env.NEXT_PUBLIC_BASE_URL}${image}`
+                        : "/empty.png"
+                    }
+                    alt={post?.options?.title ?? "image"}
+                    width={500}
+                    height={500}
+                    priority
+                  />
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
         </div>
       </div>
     </div>

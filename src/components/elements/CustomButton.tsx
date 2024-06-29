@@ -4,14 +4,13 @@ export const CustomButton = ({
   isLoading,
   type,
   text,
-  clickHandler,
+  ...props
 }: CustomButtonProps) => {
   return (
     <button
-      type={type ? type : "button"}
       className="bg-primary hover:bg-primary/80 rounded py-2 px-4 text-white disabled:cursor-wait"
-      onClick={clickHandler}
       disabled={isLoading}
+      {...props}
     >
       {isLoading ? (
         <svg
