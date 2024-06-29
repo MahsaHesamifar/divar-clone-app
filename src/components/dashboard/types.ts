@@ -6,5 +6,10 @@ export interface Category {
 }
 
 export interface Post {
-  name: string;
+  title: string;
+  content?: string;
+  category: string;
+  city?: string;
+  amount: number;
+  images: string[];
 }

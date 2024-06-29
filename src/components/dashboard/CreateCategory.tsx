@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import { CustomButton, InputField, SelectField } from "@/components/elements";
-import { iconOptions } from "@/constants";
+import { iconOptions, messages } from "@/constants";
 import { useCreateCategoryMutation } from "@/services/category";
 
 import type { Category } from "./types";
@@ -24,11 +24,10 @@ export const CreateCategory = () => {
         icon,
       });
       if (result.data) {
-        toast.success(result.data.message ?? "Category created successfuly");
+        toast.success(result.data.message ?? messages.category.create.success);
       }
     } catch (err) {
-      toast.error("Something went wrong");
-      throw err;
+      toast.error(messages.category.create.error);
     }
   };
   return (
@@ -69,7 +68,7 @@ export const CreateCategory = () => {
 
       <hr className="border border-grey-200 mt-10 mb-5" />
       <div className="w-full flex justify-end">
-        <CustomButton type="submit" isLoading={isLoading} text="تایید" />
+        <CustomButton type="submit" isLoading={isLoading} text="ثبت" />
       </div>
     </form>
   );

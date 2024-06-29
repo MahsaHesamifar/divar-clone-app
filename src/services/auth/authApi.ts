@@ -30,7 +30,7 @@ export const authApi = baseStoreApi.injectEndpoints({
           code,
         },
       }),
-      invalidatesTags: ["User"],
+      invalidatesTags: ["User", "Post"],
     }),
     checkRefreshToken: builder.mutation<CheckTokenRes, CheckTokenReq>({
       query: ({ refreshToken }) => ({

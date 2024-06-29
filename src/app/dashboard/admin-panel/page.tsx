@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 import { CreateCategory } from "@/components/dashboard";
 import { ProtectedRoute } from "@/components/wrappers";
-import { roles } from "@/constants";
+import { messages, roles } from "@/constants";
 import {
   useDeleteCategoryMutation,
   useGetCategoriesQuery,
@@ -19,10 +19,10 @@ export default function AdminPanel() {
     try {
       const result = await deleteCategory({ id });
       if (result.data) {
-        toast.success(result.data.message ?? "Category deleted successfuly");
+        toast.success(result.data.message ?? messages.category.delete.success);
       }
     } catch (err) {
-      toast.error("Something went wrong");
+      toast.error(messages.category.delete.error);
       throw err;
     }
   };

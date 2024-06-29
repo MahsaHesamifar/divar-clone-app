@@ -1,28 +1,30 @@
+import type { HTMLProps } from "react";
 import type { FieldError, UseFormRegisterReturn } from "react-hook-form";
 
-export interface CustomButtonProps {
+import type { Post } from "@/services/post";
+
+export interface CustomButtonProps extends HTMLProps<HTMLButtonElement> {
   isLoading?: boolean;
-  type?: "button" | "submit" | "reset" | undefined;
   text: string;
-  clickHandler?: () => {};
 }
 
-export interface InputFieldProps {
+export interface InputFieldProps extends HTMLProps<HTMLInputElement> {
   showLabel?: boolean;
-  label: string;
-  name: string;
   error?: FieldError;
   registration: UseFormRegisterReturn;
   errorMessage: string;
   isLeftToRight?: boolean;
 }
 
-export interface SelectFieldProps {
+export interface SelectFieldProps extends HTMLProps<HTMLSelectElement> {
   showLabel?: boolean;
-  label: string;
-  name: string;
   error?: FieldError;
   registration: UseFormRegisterReturn;
   errorMessage: string;
-  options: string[];
+  options: { name: string; value: string }[];
+}
+
+export interface PostBoxProps {
+  post: Post;
+  editable?: boolean;
 }

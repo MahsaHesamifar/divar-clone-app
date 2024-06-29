@@ -8,6 +8,7 @@ const baseQuery = fetchBaseQuery({
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
     }
+    headers.set("Accept", "*/*");
     return headers;
   },
 });
@@ -16,7 +17,8 @@ export const baseStoreApi = createApi({
   reducerPath: "baseStoreApi",
   baseQuery: baseQuery,
 
-  tagTypes: ["User", "Category"],
+  tagTypes: ["User", "Category", "Post"],
 
   endpoints: () => ({}),
+  refetchOnReconnect: true,
 });
