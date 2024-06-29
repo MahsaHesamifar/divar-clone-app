@@ -15,6 +15,10 @@ export interface GetMyPostsRes {
   count: number;
 }
 
+export interface GetPostByIdRes {
+  post: Post;
+}
+
 export interface DeletePostRes extends Message {}
 
 export interface DeletePostReq {

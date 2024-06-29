@@ -14,6 +14,7 @@ const config: Config = {
       grey: {
         100: "#F8F8F7",
         200: "#EBEBEB",
+        300: "#E0E0E0",
         400: "#868686",
       },
     },
