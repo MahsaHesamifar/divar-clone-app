@@ -6,7 +6,7 @@ export interface Category {
 }
 
 export interface Post {
-  title?: string;
+  title: string;
   content?: string;
   category: string;
   city?: string;

@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 import Link from "next/link";
 
+import { messages } from "@/constants";
 import { useDeletePostMutation } from "@/services/post";
 import { paths } from "@/utils";
 
@@ -15,11 +16,10 @@ export const PostBox = ({ post, editable = false }: PostBoxProps) => {
     try {
       const result = await deletePost({ id: post._id });
       if (result.data) {
-        toast.success(result.data.message ?? "Category deleted successfuly");
+        toast.success(result.data.message ?? messages.post.delete.success);
       }
     } catch (err) {
-      toast.error("Something went wrong");
-      throw err;
+      toast.error(messages.post.delete.error);
     }
   };
 

@@ -2,6 +2,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 import { CustomButton, InputField, SelectField } from "@/components/elements";
+import { messages } from "@/constants";
 import { useGetCategoriesQuery } from "@/services/category";
 import { useCreatePostMutation } from "@/services/post";
 
@@ -23,7 +24,7 @@ export const CreatePost = () => {
   const onSubmit: SubmitHandler<Post> = async (data) => {
     const formData = new FormData();
 
-    formData.append("title", data.title ?? "");
+    formData.append("title", data.title);
     formData.append("content", data.content ?? "");
     formData.append("city", data.city ?? "");
     formData.append("amount", data.amount.toString());
@@ -38,11 +39,10 @@ export const CreatePost = () => {
     try {
       const result = await createPost(formData);
       if (result.data) {
-        toast.success(result.data.message ?? "Category created successfuly");
+        toast.success(result.data.message ?? messages.post.create.success);
       }
     } catch (err) {
-      toast.error("Something went wrong");
-      throw err;
+      toast.error(messages.post.create.error);
     }
   };
 
@@ -113,7 +113,7 @@ export const CreatePost = () => {
       )}
       <hr className="border border-grey-200 mt-10 mb-5" />
       <div className="w-full flex justify-end">
-        <CustomButton type="submit" text="تایید" isLoading={isLoading} />
+        <CustomButton type="submit" text="ثبت" isLoading={isLoading} />
       </div>
     </form>
   );
