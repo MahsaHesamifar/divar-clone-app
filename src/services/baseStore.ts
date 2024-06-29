@@ -8,6 +8,7 @@ const baseQuery = fetchBaseQuery({
     if (token) {
       headers.set("Authorization", `Bearer ${token}`);
     }
+    headers.set("Accept", "*/*");
     return headers;
   },
 });
@@ -19,4 +20,5 @@ export const baseStoreApi = createApi({
   tagTypes: ["User", "Category", "Post"],
 
   endpoints: () => ({}),
+  refetchOnReconnect: true,
 });

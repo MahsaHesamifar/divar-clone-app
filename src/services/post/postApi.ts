@@ -1,6 +1,12 @@
 import { baseStoreApi } from "../baseStore";
 
-import type { DeletePostReq, DeletePostRes, GetMyPostsRes } from "./types";
+import type {
+  CreatePostReq,
+  CreatePostRes,
+  DeletePostReq,
+  DeletePostRes,
+  GetMyPostsRes,
+} from "./types";
 
 export const postApi = baseStoreApi.injectEndpoints({
   endpoints: (builder) => ({
@@ -9,22 +15,16 @@ export const postApi = baseStoreApi.injectEndpoints({
       providesTags: ["Post"],
     }),
 
-    createPost: builder.mutation({
-      query: ({ data, formData }) => ({
+    getPostById: builder.query({
+      query: ({ id }) => `post/${id}`,
+      providesTags: ["Post"],
+    }),
+
+    createPost: builder.mutation<CreatePostRes, CreatePostReq>({
+      query: (formData) => ({
         url: "post/create",
         method: "POST",
-        body: {
-          title: data.title,
-          content: data.content,
-          amount: parseInt(data.amount),
-          city: data.city,
-          category: data.category,
-          // images: formData.images,
-        },
-        // headers: {
-        //   "Content-Type": "multipart/form-data;",
-        // },
-        // formData: true,
+        body: formData,
       }),
       invalidatesTags: ["Post"],
     }),

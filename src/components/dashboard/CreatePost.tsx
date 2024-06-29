@@ -23,6 +23,12 @@ export const CreatePost = () => {
   const onSubmit: SubmitHandler<Post> = async (data) => {
     const formData = new FormData();
 
+    formData.append("title", data.title ?? "");
+    formData.append("content", data.content ?? "");
+    formData.append("city", data.city ?? "");
+    formData.append("amount", data.amount.toString());
+    formData.append("category", data.category);
+
     if (data.images && data.images.length > 0) {
       for (let i = 0; i < data.images.length; i++) {
         formData.append("images", data.images[i]);
@@ -30,16 +36,16 @@ export const CreatePost = () => {
     }
 
     try {
-      const result = await createPost({ data, formData });
+      const result = await createPost(formData);
       if (result.data) {
         toast.success(result.data.message ?? "Category created successfuly");
-        console.log("success", result);
       }
     } catch (err) {
       toast.error("Something went wrong");
       throw err;
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

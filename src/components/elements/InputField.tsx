@@ -9,6 +9,7 @@ export const InputField = ({
   errorMessage,
   isLeftToRight,
   type = "text",
+  ...props
 }: InputFieldProps) => {
   return (
     <>
@@ -22,6 +23,7 @@ export const InputField = ({
         placeholder={label}
         type={type}
         {...registration}
+        {...props}
       />
       {error && <p className="text-primary mb-2">{errorMessage}</p>}
     </>
