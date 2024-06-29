@@ -5,12 +5,18 @@ import type {
   CreatePostRes,
   DeletePostReq,
   DeletePostRes,
+  GetAllPostsRes,
   GetMyPostsRes,
   GetPostByIdRes,
 } from "./types";
 
 export const postApi = baseStoreApi.injectEndpoints({
   endpoints: (builder) => ({
+    getAllPosts: builder.query<GetAllPostsRes, void>({
+      query: () => "",
+      providesTags: ["Post"],
+    }),
+
     getMyPosts: builder.query<GetMyPostsRes, void>({
       query: () => "post/my",
       providesTags: ["Post"],
@@ -41,6 +47,7 @@ export const postApi = baseStoreApi.injectEndpoints({
 });
 
 export const {
+  useGetAllPostsQuery,
   useGetMyPostsQuery,
   useGetPostByIdQuery,
   useCreatePostMutation,

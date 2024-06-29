@@ -10,6 +10,10 @@ export interface Message {
   message: string;
 }
 
+export interface GetAllPostsRes {
+  posts: Post[];
+}
+
 export interface GetMyPostsRes {
   posts: Post[];
   count: number;
