@@ -1,6 +1,7 @@
 "use client";
 
 import { toast } from "react-toastify";
+import Image from "next/image";
 
 import { CreateCategory } from "@/components/dashboard";
 import { ProtectedRoute } from "@/components/wrappers";
@@ -40,6 +41,8 @@ export default function AdminPanel() {
           <div className="flex flex-wrap justify-center w-2/3">
             {categoriesData &&
               categoriesData.map((category, index) => {
+                const iconSrc = require(`@/icons/${category.icon}.svg`).default;
+
                 return (
                   <div
                     key={index}
@@ -47,6 +50,14 @@ export default function AdminPanel() {
                       "rounded bg-grey-200 px-4 py-2 m-1 flex justify-between"
                     }
                   >
+                    <Image
+                      className="ml-2"
+                      src={iconSrc}
+                      alt={category.name}
+                      width={25}
+                      height={25}
+                      priority
+                    />
                     {category.name}
                     <button
                       className="mr-5 px-2 rounded-full hover:bg-primary/20 hover:text-primary"
