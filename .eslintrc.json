@@ -16,6 +16,7 @@
           {
             "groups": [
               // Packages `react` related packages come first.
+              ["^react$"],
               ["^react", "^@?\\w"],
               // Internal packages.
               ["^(@|components)(/.*|$)"],
