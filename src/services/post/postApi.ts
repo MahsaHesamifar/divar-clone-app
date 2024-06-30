@@ -3,7 +3,6 @@ import { baseStoreApi } from "../baseStore";
 import type {
   CreatePostReq,
   CreatePostRes,
-  DeletePostReq,
   DeletePostRes,
   GetAllPostsRes,
   GetMyPostsRes,
@@ -36,8 +35,8 @@ export const postApi = baseStoreApi.injectEndpoints({
       invalidatesTags: ["Post"],
     }),
 
-    deletePost: builder.mutation<DeletePostRes, DeletePostReq>({
-      query: ({ id }) => ({
+    deletePost: builder.mutation<DeletePostRes, string>({
+      query: (id) => ({
         url: `post/delete/${id}`,
         method: "DELETE",
       }),

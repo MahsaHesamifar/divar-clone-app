@@ -3,7 +3,6 @@ import { baseStoreApi } from "../baseStore";
 import type {
   CreateCategoryReq,
   CreateCategoryRes,
-  DeleteCategoryReq,
   DeleteCategoryRes,
   GetCategoriesRes,
 } from "./types";
@@ -23,8 +22,8 @@ export const categoryApi = baseStoreApi.injectEndpoints({
       invalidatesTags: ["Category"],
     }),
 
-    deleteCategory: builder.mutation<DeleteCategoryRes, DeleteCategoryReq>({
-      query: ({ id }) => ({
+    deleteCategory: builder.mutation<DeleteCategoryRes, string>({
+      query: (id) => ({
         url: `category/${id}`,
         method: "DELETE",
       }),

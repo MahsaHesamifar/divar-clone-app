@@ -18,7 +18,7 @@ export default function AdminPanel() {
 
   const deleteCategoryHandler = async (id: string) => {
     try {
-      const result = await deleteCategory({ id });
+      const result = await deleteCategory(id);
       if (result.data) {
         toast.success(result.data.message ?? messages.category.delete.success);
       } else if ("error" in result) {

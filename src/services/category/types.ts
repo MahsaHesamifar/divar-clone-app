@@ -15,10 +15,6 @@ export type GetCategoriesRes = {
   icon: string;
 }[];
 
-export interface DeleteCategoryReq {
-  id: string;
-}
-
 export interface DeleteCategoryRes {
   message: string;
 }

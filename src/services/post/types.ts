@@ -25,10 +25,6 @@ export interface GetPostByIdRes {
 
 export interface DeletePostRes extends Message {}
 
-export interface DeletePostReq {
-  id: string;
-}
-
 export interface CreatePostRes extends Message {}
 
 export type CreatePostReq = FormData;
