@@ -13,6 +13,7 @@ export const CreateCategory = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<Category>();
 
   const onSubmit: SubmitHandler<Category> = async (data) => {
@@ -25,6 +26,7 @@ export const CreateCategory = () => {
       });
       if (result.data) {
         toast.success(result.data.message ?? messages.category.create.success);
+        reset();
       }
     } catch (err) {
       toast.error(messages.category.create.error);

@@ -19,6 +19,7 @@ export const CreatePost = () => {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<Post>();
 
   const onSubmit: SubmitHandler<Post> = async (data) => {
@@ -40,6 +41,7 @@ export const CreatePost = () => {
       const result = await createPost(formData);
       if (result.data) {
         toast.success(result.data.message ?? messages.post.create.success);
+        reset();
       }
     } catch (err) {
       toast.error(messages.post.create.error);
