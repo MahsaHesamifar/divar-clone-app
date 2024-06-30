@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -18,8 +19,6 @@ export const Header = () => {
 
   const { data, isLoading } = useGetUserRoleQuery(undefined, {
     skip: !isTokenValid,
-    // refetchOnMountOrArgChange: true,
-    // refetchOnReconnect: true,
   });
 
   useEffect(() => {
@@ -52,7 +51,7 @@ export const Header = () => {
         <div className="group relative">
           <span className="hover:bg-grey-200 py-2 px-4 rounded">دیوار من</span>
 
-          <div className="hidden group-hover:flex flex-col absolute top-5 bg-white rounded w-[200px] overflow-hidden shadow-md">
+          <div className="z-10 hidden group-hover:flex flex-col absolute top-5 bg-white rounded w-[200px] overflow-hidden shadow-md">
             {isTokenValid ? (
               <>
                 {data && data?.role === roles.admin && !isLoading && (
