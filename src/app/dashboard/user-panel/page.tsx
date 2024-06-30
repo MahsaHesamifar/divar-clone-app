@@ -19,12 +19,17 @@ export default function UserPanel() {
         {isLoading ? (
           <Loading />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full xl:w-2/3">
-            {data &&
-              data.posts?.map((post, index) => {
-                return <PostBox post={post} key={index} editable />;
-              })}
-          </div>
+          data && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full xl:w-2/3">
+              {data.posts.length <= 0 ? (
+                <p className="text-grey-400">آگهی ای یافت نشد</p>
+              ) : (
+                data.posts?.map((post, index) => {
+                  return <PostBox post={post} key={index} editable />;
+                })
+              )}
+            </div>
+          )
         )}
       </div>
     </ProtectedRoute>
