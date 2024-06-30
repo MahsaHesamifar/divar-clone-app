@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-import { PostBox } from "@/components/elements";
+import { Loading, PostBox } from "@/components/elements";
 import { useGetCategoriesQuery } from "@/services/category";
 import { useGetAllPostsQuery } from "@/services/post";
 
@@ -12,9 +12,9 @@ export default function Home() {
     useGetCategoriesQuery();
 
   return (
-    <main className="flex flex-col items-center justify-between xl:flex-row xl:items-start py-10 px-5 xl:px-60">
+    <main className="flex flex-col items-center justify-center xl:flex-row xl:items-start py-10 px-5 xl:px-60">
       {postsIsLoading || categoriesIsLoading ? (
-        <>Loading...</>
+        <Loading />
       ) : (
         <>
           <div className="w-1/4">

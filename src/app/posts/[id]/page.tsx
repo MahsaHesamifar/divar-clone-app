@@ -7,6 +7,7 @@ import { notFound, useParams } from "next/navigation";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import { Loading } from "@/components/elements";
 import { useGetPostByIdQuery } from "@/services/post";
 
 import "swiper/css/navigation";
@@ -20,7 +21,7 @@ export default function PostShowPage() {
   const { data, error, isLoading } = useGetPostByIdQuery(id);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (!isLoading && !data) {

@@ -1,9 +1,10 @@
 "use client";
 
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 import { CustomButton, InputField } from "@/components/elements";
-import { steps } from "@/constants";
+import { messages, steps } from "@/constants";
 import { useSendOtpMutation } from "@/services/auth";
 
 import type { SendOtpInputTypes, SendOtpProps } from "./types";
@@ -23,9 +24,10 @@ export const SendOtp = ({ setStep, setMobile }: SendOtpProps) => {
       if (result.data) {
         setMobile(data.mobile);
         setStep(steps.check);
+        toast.success(result.data.message ?? messages.auth.sendOtp.success);
       }
     } catch (err) {
-      throw err;
+      toast.error(messages.auth.sendOtp.error);
     }
   };
 

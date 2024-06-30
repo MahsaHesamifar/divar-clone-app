@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 
 import { CreateCategory } from "@/components/dashboard";
+import { Loading } from "@/components/elements";
 import { ProtectedRoute } from "@/components/wrappers";
 import { messages, roles } from "@/constants";
 import {
@@ -26,7 +27,6 @@ export default function AdminPanel() {
       }
     } catch (err) {
       toast.error(messages.category.delete.error);
-      throw err;
     }
   };
 
@@ -38,7 +38,7 @@ export default function AdminPanel() {
 
         <h2 className="font-bold text-xl my-10">لیست دسته بندی ها: </h2>
         {isLoading || deleteIsLoading ? (
-          <>Loading...</>
+          <Loading />
         ) : (
           <div className="flex flex-wrap justify-center w-2/3">
             {categoriesData &&
