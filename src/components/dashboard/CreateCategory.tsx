@@ -27,6 +27,8 @@ export const CreateCategory = () => {
       if (result.data) {
         toast.success(result.data.message ?? messages.category.create.success);
         reset();
+      } else if ("error" in result) {
+        toast.error(messages.category.create.error);
       }
     } catch (err) {
       toast.error(messages.category.create.error);

@@ -18,6 +18,8 @@ export const PostBox = ({ post, editable = false }: PostBoxProps) => {
       const result = await deletePost({ id: post._id });
       if (result.data) {
         toast.success(result.data.message ?? messages.post.delete.success);
+      } else if ("error" in result) {
+        toast.error(messages.post.delete.error);
       }
     } catch (err) {
       toast.error(messages.post.delete.error);

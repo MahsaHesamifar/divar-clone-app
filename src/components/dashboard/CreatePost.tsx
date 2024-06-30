@@ -42,6 +42,8 @@ export const CreatePost = () => {
       if (result.data) {
         toast.success(result.data.message ?? messages.post.create.success);
         reset();
+      } else if ("error" in result) {
+        toast.error(messages.post.create.error);
       }
     } catch (err) {
       toast.error(messages.post.create.error);

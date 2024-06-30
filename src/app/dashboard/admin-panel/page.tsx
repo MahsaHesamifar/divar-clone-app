@@ -21,6 +21,8 @@ export default function AdminPanel() {
       const result = await deleteCategory({ id });
       if (result.data) {
         toast.success(result.data.message ?? messages.category.delete.success);
+      } else if ("error" in result) {
+        toast.error(messages.category.delete.error);
       }
     } catch (err) {
       toast.error(messages.category.delete.error);
