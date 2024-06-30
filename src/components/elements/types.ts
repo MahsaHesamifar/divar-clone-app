@@ -16,6 +16,14 @@ export interface InputFieldProps extends HTMLProps<HTMLInputElement> {
   isLeftToRight?: boolean;
 }
 
+export interface TextareaFieldProps extends HTMLProps<HTMLTextAreaElement> {
+  showLabel?: boolean;
+  error?: FieldError;
+  registration: UseFormRegisterReturn;
+  errorMessage: string;
+  isLeftToRight?: boolean;
+}
+
 export interface SelectFieldProps extends HTMLProps<HTMLSelectElement> {
   showLabel?: boolean;
   error?: FieldError;

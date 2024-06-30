@@ -28,7 +28,6 @@ export const useCheckToken = () => {
     const getNewTokens = async () => {
       const refreshToken = Cookies.get("refreshToken");
 
-      console.log("getting New Tokens");
       if (refreshToken) {
         try {
           const result = await checkRefreshToken({
@@ -50,7 +49,6 @@ export const useCheckToken = () => {
           throw err;
         }
       } else {
-        console.log("No refresh token -> logged out");
         logOut();
       }
     };
@@ -58,7 +56,6 @@ export const useCheckToken = () => {
     const handleRetry = () => {
       retryCount += 1;
       if (retryCount >= maxRetries) {
-        console.log("Maximum retries reached -> logging out");
         logOut();
       }
     };
@@ -76,24 +73,19 @@ export const useCheckToken = () => {
             const timeLeft = expTime - currentTime;
 
             if (timeLeft > 5 * 1000) {
-              console.log("token is valid");
               setIsTokenValid(true);
             } else {
-              console.log("token expired -> getNewTokens");
               getNewTokens();
             }
           }
         } catch (error) {
-          console.log("token can't be decoded -> getNewTokens");
           getNewTokens();
         }
       } else {
         const refreshToken = Cookies.get("refreshToken");
         if (refreshToken) {
-          console.log("No accessToken -> getNewTokens");
           getNewTokens();
         } else {
-          console.log("No accessToken and no refreshToken -> logged out");
           logOut();
         }
       }

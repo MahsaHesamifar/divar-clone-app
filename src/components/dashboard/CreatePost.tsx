@@ -1,7 +1,12 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-import { CustomButton, InputField, SelectField } from "@/components/elements";
+import {
+  CustomButton,
+  InputField,
+  SelectField,
+  TextareaField,
+} from "@/components/elements";
 import { messages } from "@/constants";
 import { useGetCategoriesQuery } from "@/services/category";
 import { useCreatePostMutation } from "@/services/post";
@@ -64,7 +69,7 @@ export const CreatePost = () => {
         error={errors.title}
         errorMessage="لطفا عنوان را به درستی وارد نمایید"
       />
-      <InputField
+      <TextareaField
         showLabel
         label="توضیحات"
         name="content"

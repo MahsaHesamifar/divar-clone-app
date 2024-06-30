@@ -49,7 +49,7 @@ export default function AdminPanel() {
                   <div
                     key={index}
                     className={
-                      "rounded bg-grey-200 px-4 py-2 m-1 flex justify-between"
+                      "rounded bg-white shadow-sm border border-grey-200 px-4 py-2 m-1 flex justify-between"
                     }
                   >
                     <Image
@@ -62,7 +62,7 @@ export default function AdminPanel() {
                     />
                     {category.name}
                     <button
-                      className="mr-5 px-2 rounded-full hover:bg-primary/20 hover:text-primary"
+                      className="mr-5 px-2 rounded-full text-primary bg-primary/5 hover:bg-primary/20"
                       onClick={() => deleteCategoryHandler(category._id)}
                     >
                       X
