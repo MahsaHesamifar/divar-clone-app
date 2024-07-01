@@ -2,6 +2,8 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 
 import { baseApi } from "@/services/base";
 
+import { rtkQueryErrorLogger } from "./middlewares";
+
 const rootReducer = combineReducers({
   [baseApi.reducerPath]: baseApi.reducer,
 });
@@ -9,7 +11,7 @@ const rootReducer = combineReducers({
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(baseApi.middleware),
+    getDefaultMiddleware().concat(baseApi.middleware, rtkQueryErrorLogger),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
