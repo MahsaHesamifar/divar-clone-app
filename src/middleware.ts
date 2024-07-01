@@ -9,7 +9,6 @@ const protectedRoutes = [paths.adminPanel(), paths.userPanel()];
 export async function middleware(request: NextRequest) {
   const accessToken = request.cookies.get("accessToken")?.value;
   const refreshToken = request.cookies.get("refreshToken")?.value;
-
   const userRole = request.cookies.get("role")?.value;
 
   const isAuthRoute = request.nextUrl.pathname.startsWith(paths.auth());
@@ -18,15 +17,19 @@ export async function middleware(request: NextRequest) {
   );
   const isAdminRoute = request.nextUrl.pathname.startsWith(paths.adminPanel());
 
-  if (isAuthRoute && accessToken) {
+  const redirectToUserPanel = isAuthRoute && accessToken;
+  const redirectToAuth = isProtectedRoute && !accessToken && !refreshToken;
+  const redirectToUnauthorized = isAdminRoute && userRole !== roles.admin;
+
+  if (redirectToUserPanel) {
     return NextResponse.redirect(new URL(paths.userPanel(), request.url));
   }
 
-  if (isProtectedRoute && !accessToken && !refreshToken) {
+  if (redirectToAuth) {
     return NextResponse.redirect(new URL(paths.auth(), request.url));
   }
 
-  if (isAdminRoute && userRole !== roles.admin) {
+  if (redirectToUnauthorized) {
     const unauthorizedUrl = new URL(paths.unauthorized(), request.url);
     unauthorizedUrl.searchParams.set("attemptedUrl", request.nextUrl.pathname);
     return NextResponse.redirect(unauthorizedUrl);

@@ -3,10 +3,12 @@
 import { useEffect } from "react";
 
 import { SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
-import { CustomButton, InputField } from "@/components/elements";
+import { Button, Input } from "@/components/elements";
+import { messages } from "@/constants";
 import { useCheckOtpMutation, useGetUserRoleQuery } from "@/services/auth";
 import { paths, setRole, setTokens } from "@/utils";
 
@@ -34,7 +36,7 @@ export const CheckOtp = ({ mobile }: CheckOtpProps) => {
       setRole(userRoleData.role);
       router.push(paths.userPanel());
     } else if (userRoleError) {
-      console.error("Failed to fetch user role:", userRoleError);
+      toast.error(messages.auth.getRole.error);
     }
   }, [userRoleData, userRoleError, router]);
 
@@ -51,7 +53,7 @@ export const CheckOtp = ({ mobile }: CheckOtpProps) => {
         });
       }
     } catch (err) {
-      throw err;
+      toast.error(messages.auth.checkOtp.error);
     }
   };
 
@@ -60,7 +62,7 @@ export const CheckOtp = ({ mobile }: CheckOtpProps) => {
       <p className="font-bold my-5">کد تأیید را وارد کنید</p>
       <p className="text-grey-400 my-5">کد پیامک‌شده را وارد کنید.</p>
 
-      <InputField
+      <Input
         label="code"
         name="code"
         registration={register("code", {
@@ -73,7 +75,7 @@ export const CheckOtp = ({ mobile }: CheckOtpProps) => {
 
       <hr className="border border-grey-200 mt-10 mb-5" />
       <div className="w-full flex justify-end">
-        <CustomButton type="submit" isLoading={isLoading} text={"تایید"} />
+        <Button type="submit" isLoading={isLoading} text={"تایید"} />
       </div>
     </form>
   );

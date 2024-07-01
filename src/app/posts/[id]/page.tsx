@@ -7,6 +7,7 @@ import { notFound, useParams } from "next/navigation";
 import { Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+import { Loading } from "@/components/elements";
 import { useGetPostByIdQuery } from "@/services/post";
 
 import "swiper/css/navigation";
@@ -20,7 +21,7 @@ export default function PostShowPage() {
   const { data, error, isLoading } = useGetPostByIdQuery(id);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (!isLoading && !data) {
@@ -31,14 +32,17 @@ export default function PostShowPage() {
     throw error;
   }
 
-  const post = data?.post;
+  const {
+    post: { options },
+    post,
+  } = data;
 
   return (
     <div className="flex flex-col items-center w-full py-20 px-5 min-h-[80vh]">
       <div className="flex flex-col lg:flex-row w-full lg:w-2/3">
         <div className="w-full lg:w-1/2 md:ml-10">
-          <h2 className="font-bold text-2xl">{post.options.title}</h2>
-          <div className="text-grey-400 py-5">{post.options.city}</div>
+          <h2 className="font-bold text-2xl">{options.title}</h2>
+          <div className="text-grey-400 py-5">{options.city}</div>
           <hr className="border-grey-300" />
 
           <div className="flex justify-between items-center py-3">
@@ -49,7 +53,13 @@ export default function PostShowPage() {
 
           <div className="py-3">
             <span>توضیحات </span>
-            <p>{post.options.content}</p>
+            {options.content !== "" ? (
+              <p>{options.content}</p>
+            ) : (
+              <p className="text-grey-400 font-sm">
+                توضیحاتی برای این آگهی ثبت نشده است
+              </p>
+            )}
           </div>
         </div>
 
@@ -63,15 +73,15 @@ export default function PostShowPage() {
           >
             {post.images.map((image, index) => {
               return (
-                <SwiperSlide key={index}>
+                <SwiperSlide key={image + index}>
                   <Image
                     className="bg-grey-200 rounded object-cover w-full"
                     src={
                       image
                         ? `${process.env.NEXT_PUBLIC_BASE_URL}${image}`
-                        : "/empty.png"
+                        : "/images/empty.png"
                     }
-                    alt={post?.options?.title ?? "image"}
+                    alt={options?.title ?? "image"}
                     width={500}
                     height={500}
                     priority

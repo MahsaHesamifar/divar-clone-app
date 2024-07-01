@@ -10,12 +10,12 @@ import { paths } from "@/utils";
 
 import type { PostBoxProps } from "./types";
 
-export const PostBox = ({ post, editable = false }: PostBoxProps) => {
+export const PostBox = ({ post, editable }: PostBoxProps) => {
   const [deletePost] = useDeletePostMutation();
 
   const deletePostHandler = async () => {
     try {
-      const result = await deletePost({ id: post._id });
+      const result = await deletePost(post._id);
       if (result.data) {
         toast.success(result.data.message ?? messages.post.delete.success);
       } else if ("error" in result) {
@@ -49,7 +49,7 @@ export const PostBox = ({ post, editable = false }: PostBoxProps) => {
           src={
             post.images[0]
               ? `${process.env.NEXT_PUBLIC_BASE_URL}${post.images[0]}`
-              : "/empty.png"
+              : "/images/empty.png"
           }
           alt={post?.options?.title ?? "image"}
           width={140}

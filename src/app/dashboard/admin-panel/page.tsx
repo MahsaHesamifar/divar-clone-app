@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import Image from "next/image";
 
 import { CreateCategory } from "@/components/dashboard";
+import { Loading } from "@/components/elements";
 import { ProtectedRoute } from "@/components/wrappers";
 import { messages, roles } from "@/constants";
 import {
@@ -18,7 +19,7 @@ export default function AdminPanel() {
 
   const deleteCategoryHandler = async (id: string) => {
     try {
-      const result = await deleteCategory({ id });
+      const result = await deleteCategory(id);
       if (result.data) {
         toast.success(result.data.message ?? messages.category.delete.success);
       } else if ("error" in result) {
@@ -26,7 +27,6 @@ export default function AdminPanel() {
       }
     } catch (err) {
       toast.error(messages.category.delete.error);
-      throw err;
     }
   };
 
@@ -38,23 +38,21 @@ export default function AdminPanel() {
 
         <h2 className="font-bold text-xl my-10">لیست دسته بندی ها: </h2>
         {isLoading || deleteIsLoading ? (
-          <>Loading...</>
+          <Loading />
         ) : (
           <div className="flex flex-wrap justify-center w-2/3">
             {categoriesData &&
-              categoriesData.map((category, index) => {
-                const iconSrc = require(`@/icons/${category.icon}.svg`).default;
-
+              categoriesData.map((category) => {
                 return (
                   <div
-                    key={index}
+                    key={category._id}
                     className={
-                      "rounded bg-grey-200 px-4 py-2 m-1 flex justify-between"
+                      "rounded bg-white shadow-sm border border-grey-200 px-4 py-2 m-1 flex justify-between"
                     }
                   >
                     <Image
                       className="ml-2"
-                      src={iconSrc}
+                      src={`/icons/${category.icon}.svg`}
                       alt={category.name}
                       width={25}
                       height={25}
@@ -62,7 +60,7 @@ export default function AdminPanel() {
                     />
                     {category.name}
                     <button
-                      className="mr-5 px-2 rounded-full hover:bg-primary/20 hover:text-primary"
+                      className="mr-5 px-2 rounded-full text-primary bg-primary/5 hover:bg-primary/20"
                       onClick={() => deleteCategoryHandler(category._id)}
                     >
                       X

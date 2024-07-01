@@ -1,10 +1,12 @@
+import { Suspense } from "react";
+
 import { ToastContainer } from "react-toastify";
 import type { Metadata } from "next";
 
+import { Loading } from "@/components/elements";
 import { Footer, Header } from "@/components/layout";
-import { StoreProvider } from "@/services/StoreProvider";
-
-import type { RootLayoutProps } from "./types";
+import { StoreProvider } from "@/components/wrappers";
+import type { ChildrenProps } from "@/types";
 
 import "@/styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,14 +16,14 @@ export const metadata: Metadata = {
   description: "Divar clone application",
 };
 
-export default function RootLayout({ children }: Readonly<RootLayoutProps>) {
+export default function RootLayout({ children }: Readonly<ChildrenProps>) {
   return (
     <html lang="en" dir="rtl">
       <body className="bg-grey-100">
         <StoreProvider>
           <ToastContainer />
           <Header />
-          {children}
+          <Suspense fallback={<Loading />}>{children}</Suspense>
           <Footer />
         </StoreProvider>
       </body>

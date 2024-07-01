@@ -1,6 +1,6 @@
-import type { SelectFieldProps } from "./types";
+import type { SelectProps } from "./types";
 
-export const SelectField = ({
+export const Select = ({
   label,
   showLabel,
   name,
@@ -9,7 +9,7 @@ export const SelectField = ({
   errorMessage,
   options,
   ...props
-}: SelectFieldProps) => {
+}: SelectProps) => {
   return (
     <>
       {showLabel && <label htmlFor={name}>{label}:</label>}
@@ -20,8 +20,8 @@ export const SelectField = ({
         {...registration}
         {...props}
       >
-        {options.map((option, i) => (
-          <option value={option.value} key={i}>
+        {options.map((option) => (
+          <option value={option.value} key={option.id}>
             {option.name}
           </option>
         ))}

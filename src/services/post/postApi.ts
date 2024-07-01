@@ -1,16 +1,15 @@
-import { baseStoreApi } from "../baseStore";
+import { MessageResponse } from "@/types";
+
+import { baseApi } from "../base";
 
 import type {
-  CreatePostReq,
-  CreatePostRes,
-  DeletePostReq,
-  DeletePostRes,
+  CreatePostPayload,
   GetAllPostsRes,
   GetMyPostsRes,
   GetPostByIdRes,
 } from "./types";
 
-export const postApi = baseStoreApi.injectEndpoints({
+export const postApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllPosts: builder.query<GetAllPostsRes, void>({
       query: () => "",
@@ -27,7 +26,7 @@ export const postApi = baseStoreApi.injectEndpoints({
       providesTags: ["Post"],
     }),
 
-    createPost: builder.mutation<CreatePostRes, CreatePostReq>({
+    createPost: builder.mutation<MessageResponse, CreatePostPayload>({
       query: (formData) => ({
         url: "post/create",
         method: "POST",
@@ -36,8 +35,8 @@ export const postApi = baseStoreApi.injectEndpoints({
       invalidatesTags: ["Post"],
     }),
 
-    deletePost: builder.mutation<DeletePostRes, DeletePostReq>({
-      query: ({ id }) => ({
+    deletePost: builder.mutation<MessageResponse, string>({
+      query: (id) => ({
         url: `post/delete/${id}`,
         method: "DELETE",
       }),

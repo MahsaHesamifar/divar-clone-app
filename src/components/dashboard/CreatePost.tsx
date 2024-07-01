@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-import { CustomButton, InputField, SelectField } from "@/components/elements";
+import { Button, Input, Select, Textarea } from "@/components/elements";
 import { messages } from "@/constants";
 import { useGetCategoriesQuery } from "@/services/category";
 import { useCreatePostMutation } from "@/services/post";
@@ -12,7 +12,7 @@ export const CreatePost = () => {
   const { data: categoriesData } = useGetCategoriesQuery();
   const [createPost, { isLoading }] = useCreatePostMutation();
   let categories = categoriesData?.map((category) => {
-    return { name: category.name, value: category._id };
+    return { id: category._id, name: category.name, value: category._id };
   });
 
   const {
@@ -56,7 +56,7 @@ export const CreatePost = () => {
       className="w-full lg:w-1/2 lg:mr-20"
     >
       <p className="font-bold my-5">اطلاعات زیر را وارد کنید</p>
-      <InputField
+      <Input
         showLabel
         label="عنوان * "
         name="title"
@@ -64,7 +64,7 @@ export const CreatePost = () => {
         error={errors.title}
         errorMessage="لطفا عنوان را به درستی وارد نمایید"
       />
-      <InputField
+      <Textarea
         showLabel
         label="توضیحات"
         name="content"
@@ -72,7 +72,7 @@ export const CreatePost = () => {
         error={errors.content}
         errorMessage="لطفا توضیحات را به درستی وارد نمایید"
       />
-      <SelectField
+      <Select
         showLabel
         label="دسته بندی * "
         name="category"
@@ -81,7 +81,7 @@ export const CreatePost = () => {
         errorMessage="لطفا یک گزینه را انتخاب نمایید"
         options={categories ?? []}
       />
-      <InputField
+      <Input
         showLabel
         label="شهر"
         name="city"
@@ -89,7 +89,7 @@ export const CreatePost = () => {
         error={errors.city}
         errorMessage="لطفا شهر را به درستی وارد نمایید"
       />
-      <InputField
+      <Input
         showLabel
         label="قیمت * "
         name="amount"
@@ -117,7 +117,7 @@ export const CreatePost = () => {
       )}
       <hr className="border border-grey-200 mt-10 mb-5" />
       <div className="w-full flex justify-end">
-        <CustomButton type="submit" text="ثبت" isLoading={isLoading} />
+        <Button type="submit" text="ثبت" isLoading={isLoading} />
       </div>
     </form>
   );

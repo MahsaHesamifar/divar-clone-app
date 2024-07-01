@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-import { CustomButton, InputField, SelectField } from "@/components/elements";
+import { Button, Input, Select } from "@/components/elements";
 import { iconOptions, messages } from "@/constants";
 import { useCreateCategoryMutation } from "@/services/category";
 
@@ -40,7 +40,7 @@ export const CreateCategory = () => {
       className="w-full lg:w-1/2 lg:mr-20"
     >
       <p className="font-bold my-5">اطلاعات زیر را وارد کنید</p>
-      <InputField
+      <Input
         showLabel={true}
         label="نام * "
         name="name"
@@ -51,7 +51,7 @@ export const CreateCategory = () => {
         errorMessage="لطفا نام را به درستی وارد نمایید"
       />
 
-      <InputField
+      <Input
         showLabel={true}
         label="اسلاگ"
         name="slug"
@@ -60,7 +60,7 @@ export const CreateCategory = () => {
         errorMessage="لطفا اسلاگ را به درستی وارد نمایید"
       />
 
-      <SelectField
+      <Select
         showLabel={true}
         label="آیکون * "
         name="icon"
@@ -72,7 +72,7 @@ export const CreateCategory = () => {
 
       <hr className="border border-grey-200 mt-10 mb-5" />
       <div className="w-full flex justify-end">
-        <CustomButton type="submit" isLoading={isLoading} text="ثبت" />
+        <Button type="submit" isLoading={isLoading} text="ثبت" />
       </div>
     </form>
   );

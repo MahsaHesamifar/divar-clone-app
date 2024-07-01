@@ -1,6 +1,6 @@
-import type { InputFieldProps } from "./types";
+import type { InputProps } from "./types";
 
-export const InputField = ({
+export const Input = ({
   label,
   showLabel,
   name,
@@ -10,7 +10,7 @@ export const InputField = ({
   isLeftToRight,
   type = "text",
   ...props
-}: InputFieldProps) => {
+}: InputProps) => {
   return (
     <>
       {showLabel && <label htmlFor={name}>{label}:</label>}

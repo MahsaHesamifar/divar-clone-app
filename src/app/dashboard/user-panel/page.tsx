@@ -1,7 +1,7 @@
 "use client";
 
 import { CreatePost } from "@/components/dashboard";
-import { PostBox } from "@/components/elements";
+import { Loading, PostBox } from "@/components/elements";
 import { ProtectedRoute } from "@/components/wrappers";
 import { roles } from "@/constants";
 import { useGetMyPostsQuery } from "@/services/post";
@@ -17,14 +17,19 @@ export default function UserPanel() {
 
         <h2 className="font-bold text-xl my-10">لیست آگهی های من: </h2>
         {isLoading ? (
-          <>Loading...</>
+          <Loading />
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full xl:w-2/3">
-            {data &&
-              data.posts?.map((post, index) => {
-                return <PostBox post={post} key={index} editable />;
-              })}
-          </div>
+          data && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full xl:w-2/3">
+              {data.posts.length <= 0 ? (
+                <p className="text-grey-400">آگهی ای یافت نشد</p>
+              ) : (
+                data.posts?.map((post) => {
+                  return <PostBox post={post} key={post._id} editable />;
+                })
+              )}
+            </div>
+          )
         )}
       </div>
     </ProtectedRoute>

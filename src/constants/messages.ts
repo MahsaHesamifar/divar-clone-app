@@ -13,4 +13,16 @@ export const messages = {
     },
     delete: { success: "گروه با موفقیت حذف شد", error: defaultErrorMessage },
   },
+
+  auth: {
+    sendOtp: { success: "کد با موفقیت ارسال شد", error: defaultErrorMessage },
+    checkOtp: { error: defaultErrorMessage },
+    getRole: { error: "نقش کاربر دریافت نشد" },
+  },
+
+  errors: {
+    error401: "عدم دسترسی! لطفا دوباره وارد شوید",
+    error404: "منبع یافت نشد",
+    default: defaultErrorMessage,
+  },
 };
