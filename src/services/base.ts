@@ -13,8 +13,8 @@ const baseQuery = fetchBaseQuery({
   },
 });
 
-export const baseStoreApi = createApi({
-  reducerPath: "baseStoreApi",
+export const baseApi = createApi({
+  reducerPath: "baseApi",
   baseQuery: baseQuery,
 
   tagTypes: ["User", "Category", "Post"],

@@ -1,10 +1,10 @@
 import { MessageResponse } from "@/types";
 
-import { baseStoreApi } from "../baseStore";
+import { baseApi } from "../base";
 
 import type { CreateCategoryPayload, GetCategoriesRes } from "./types";
 
-export const categoryApi = baseStoreApi.injectEndpoints({
+export const categoryApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     createCategory: builder.mutation<MessageResponse, CreateCategoryPayload>({
       query: ({ name, slug, icon }) => ({

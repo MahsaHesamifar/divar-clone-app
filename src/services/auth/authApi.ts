@@ -1,6 +1,6 @@
 import type { MessageResponse } from "@/types";
 
-import { baseStoreApi } from "../baseStore";
+import { baseApi } from "../base";
 
 import type {
   CheckOtpPayload,
@@ -10,7 +10,7 @@ import type {
   TokensRes,
 } from "./types";
 
-export const authApi = baseStoreApi.injectEndpoints({
+export const authApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     sendOtp: builder.mutation<MessageResponse, SendOtpPayload>({
       query: ({ mobile }) => ({

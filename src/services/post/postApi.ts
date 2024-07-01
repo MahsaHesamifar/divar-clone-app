@@ -1,6 +1,6 @@
 import { MessageResponse } from "@/types";
 
-import { baseStoreApi } from "../baseStore";
+import { baseApi } from "../base";
 
 import type {
   CreatePostPayload,
@@ -9,7 +9,7 @@ import type {
   GetPostByIdRes,
 } from "./types";
 
-export const postApi = baseStoreApi.injectEndpoints({
+export const postApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getAllPosts: builder.query<GetAllPostsRes, void>({
       query: () => "",
