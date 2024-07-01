@@ -29,7 +29,7 @@ export interface SelectFieldProps extends HTMLProps<HTMLSelectElement> {
   error?: FieldError;
   registration: UseFormRegisterReturn;
   errorMessage: string;
-  options: { name: string; value: string }[];
+  options: { id: string | number; name: string; value: string }[];
 }
 
 export interface PostBoxProps {

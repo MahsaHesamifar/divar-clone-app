@@ -1,6 +1,6 @@
 "use client";
 
-import type { ErrorProps } from "./types";
+import type { ErrorProps } from "@/types/types";
 
 export default function Error({ error, reset }: ErrorProps) {
   return (

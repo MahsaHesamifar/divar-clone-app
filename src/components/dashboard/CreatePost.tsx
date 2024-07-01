@@ -17,7 +17,7 @@ export const CreatePost = () => {
   const { data: categoriesData } = useGetCategoriesQuery();
   const [createPost, { isLoading }] = useCreatePostMutation();
   let categories = categoriesData?.map((category) => {
-    return { name: category.name, value: category._id };
+    return { id: category._id, name: category.name, value: category._id };
   });
 
   const {

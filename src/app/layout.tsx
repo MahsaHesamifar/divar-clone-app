@@ -6,8 +6,7 @@ import type { Metadata } from "next";
 import { Loading } from "@/components/elements";
 import { Footer, Header } from "@/components/layout";
 import { StoreProvider } from "@/services/StoreProvider";
-
-import type { RootLayoutProps } from "./types";
+import type { RootLayoutProps } from "@/types/types";
 
 import "@/styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";

@@ -2,7 +2,7 @@
 
 import { useSearchParams } from "next/navigation";
 
-const UnauthorizedPage = () => {
+export default function UnauthorizedPage() {
   const searchParams = useSearchParams();
   const attemptedUrl = searchParams.get("attemptedUrl");
 
@@ -13,6 +13,4 @@ const UnauthorizedPage = () => {
       <p>Attempted URL: {attemptedUrl}</p>
     </div>
   );
-};
-
-export default UnauthorizedPage;
+}

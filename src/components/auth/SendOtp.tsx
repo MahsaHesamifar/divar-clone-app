@@ -47,13 +47,13 @@ export const SendOtp = ({ setStep, setMobile }: SendOtpProps) => {
           pattern: /^(\+98|0)?9\d{9}$/,
         })}
         error={errors.mobile}
-        errorMessage={"لطفا شماره موبایل را به درستی وارد نمایید"}
+        errorMessage="لطفا شماره موبایل را به درستی وارد نمایید"
         isLeftToRight
       />
 
       <hr className="border border-grey-200 mt-10 mb-5" />
       <div className="w-full flex justify-end">
-        <CustomButton type="submit" isLoading={isLoading} text={"تایید"} />
+        <CustomButton type="submit" isLoading={isLoading} text="تایید" />
       </div>
     </form>
   );

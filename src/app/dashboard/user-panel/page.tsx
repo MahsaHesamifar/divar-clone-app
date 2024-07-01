@@ -24,8 +24,8 @@ export default function UserPanel() {
               {data.posts.length <= 0 ? (
                 <p className="text-grey-400">آگهی ای یافت نشد</p>
               ) : (
-                data.posts?.map((post, index) => {
-                  return <PostBox post={post} key={index} editable />;
+                data.posts?.map((post) => {
+                  return <PostBox post={post} key={post._id} editable />;
                 })
               )}
             </div>

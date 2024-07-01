@@ -20,16 +20,15 @@ export default function Home() {
           <div className="w-1/4">
             <div className="text-sm mb-4">دسته ها</div>
             <div>
-              {categoriesData?.map((category, index) => {
-                const iconSrc = require(`@/icons/${category.icon}.svg`).default;
+              {categoriesData?.map((category) => {
                 return (
                   <div
-                    key={index}
+                    key={category._id}
                     className="text-grey-400 py-2 flex items-center"
                   >
                     <Image
                       className="ml-2"
-                      src={iconSrc}
+                      src={`/icons/${category.icon}.svg`}
                       alt={category.name}
                       width={30}
                       height={30}
@@ -44,8 +43,8 @@ export default function Home() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 w-full xl:w-3/4">
             {postsData &&
-              postsData.posts?.map((post, index) => {
-                return <PostBox post={post} key={index} />;
+              postsData.posts?.map((post) => {
+                return <PostBox post={post} key={post._id} />;
               })}
           </div>
         </>

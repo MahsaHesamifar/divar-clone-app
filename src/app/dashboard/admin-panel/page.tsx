@@ -42,19 +42,17 @@ export default function AdminPanel() {
         ) : (
           <div className="flex flex-wrap justify-center w-2/3">
             {categoriesData &&
-              categoriesData.map((category, index) => {
-                const iconSrc = require(`@/icons/${category.icon}.svg`).default;
-
+              categoriesData.map((category) => {
                 return (
                   <div
-                    key={index}
+                    key={category._id}
                     className={
                       "rounded bg-white shadow-sm border border-grey-200 px-4 py-2 m-1 flex justify-between"
                     }
                   >
                     <Image
                       className="ml-2"
-                      src={iconSrc}
+                      src={`/icons/${category.icon}.svg`}
                       alt={category.name}
                       width={25}
                       height={25}

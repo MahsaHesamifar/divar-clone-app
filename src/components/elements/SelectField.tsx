@@ -20,8 +20,8 @@ export const SelectField = ({
         {...registration}
         {...props}
       >
-        {options.map((option, i) => (
-          <option value={option.value} key={i}>
+        {options.map((option) => (
+          <option value={option.value} key={option.id}>
             {option.name}
           </option>
         ))}
