@@ -3,9 +3,8 @@
 import { Provider } from "react-redux";
 
 import { store } from "@/rtk/store";
+import type { ChildrenProps } from "@/types";
 
-import type { StoreProviderProps } from "./types";
-
-export const StoreProvider = ({ children }: StoreProviderProps) => {
+export const StoreProvider = ({ children }: ChildrenProps) => {
   return <Provider store={store}>{children}</Provider>;
 };

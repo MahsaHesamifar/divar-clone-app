@@ -5,6 +5,10 @@ export interface ErrorProps {
   reset: () => void;
 }
 
-export interface RootLayoutProps {
+export interface ChildrenProps {
   children: ReactNode;
+}
+
+export interface MessageResponse {
+  message: string;
 }

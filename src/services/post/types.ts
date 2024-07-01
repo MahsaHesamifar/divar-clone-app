@@ -6,10 +6,6 @@ export interface Post {
   options: { title: string; content: string; city: string };
 }
 
-export interface Message {
-  message: string;
-}
-
 export interface GetAllPostsRes {
   posts: Post[];
 }
@@ -23,8 +19,4 @@ export interface GetPostByIdRes {
   post: Post;
 }
 
-export interface DeletePostRes extends Message {}
-
-export interface CreatePostRes extends Message {}
-
-export type CreatePostReq = FormData;
+export type CreatePostPayload = FormData;

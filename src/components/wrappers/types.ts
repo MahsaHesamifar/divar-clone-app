@@ -1,6 +1,5 @@
-import type { ReactNode } from "react";
+import type { ChildrenProps } from "@/types";
 
-export interface ProtectedRouteProps {
+export interface ProtectedRouteProps extends ChildrenProps {
   authorizedRoles: string[];
-  children: ReactNode;
 }

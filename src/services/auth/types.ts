@@ -1,27 +1,20 @@
-export interface SendOtpReq {
-  mobile: string;
-}
-export interface SendOtpRes {
-  message: string;
+import { MessageResponse } from "@/types";
+
+export interface TokensRes extends MessageResponse {
+  accessToken: string;
+  refreshToken: string;
 }
 
-export interface CheckOtpReq {
+export interface SendOtpPayload {
+  mobile: string;
+}
+
+export interface CheckOtpPayload {
   mobile: string;
   code: string;
 }
-export interface CheckOtpRes {
-  message: string;
-  accessToken: string;
-  refreshToken: string;
-}
 
-export interface CheckTokenReq {
-  refreshToken: string;
-}
-
-export interface CheckTokenRes {
-  message: string;
-  accessToken: string;
+export interface CheckTokenPayload {
   refreshToken: string;
 }
 

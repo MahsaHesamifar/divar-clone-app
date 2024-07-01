@@ -1,15 +1,12 @@
+import { MessageResponse } from "@/types";
+
 import { baseStoreApi } from "../baseStore";
 
-import type {
-  CreateCategoryReq,
-  CreateCategoryRes,
-  DeleteCategoryRes,
-  GetCategoriesRes,
-} from "./types";
+import type { CreateCategoryPayload, GetCategoriesRes } from "./types";
 
 export const categoryApi = baseStoreApi.injectEndpoints({
   endpoints: (builder) => ({
-    createCategory: builder.mutation<CreateCategoryRes, CreateCategoryReq>({
+    createCategory: builder.mutation<MessageResponse, CreateCategoryPayload>({
       query: ({ name, slug, icon }) => ({
         url: "category",
         method: "POST",
@@ -22,7 +19,7 @@ export const categoryApi = baseStoreApi.injectEndpoints({
       invalidatesTags: ["Category"],
     }),
 
-    deleteCategory: builder.mutation<DeleteCategoryRes, string>({
+    deleteCategory: builder.mutation<MessageResponse, string>({
       query: (id) => ({
         url: `category/${id}`,
         method: "DELETE",

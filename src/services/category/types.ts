@@ -1,8 +1,4 @@
-export interface CreateCategoryRes {
-  message: string;
-}
-
-export interface CreateCategoryReq {
+export interface CreateCategoryPayload {
   name: string;
   slug?: string;
   icon: string;
@@ -14,7 +10,3 @@ export type GetCategoriesRes = {
   slug: string;
   icon: string;
 }[];
-
-export interface DeleteCategoryRes {
-  message: string;
-}

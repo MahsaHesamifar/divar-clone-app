@@ -1,18 +1,18 @@
+import type { MessageResponse } from "@/types";
+
 import { baseStoreApi } from "../baseStore";
 
 import type {
-  CheckOtpReq,
-  CheckOtpRes,
-  CheckTokenReq,
-  CheckTokenRes,
+  CheckOtpPayload,
+  CheckTokenPayload,
   GetUserRoleRes,
-  SendOtpReq,
-  SendOtpRes,
+  SendOtpPayload,
+  TokensRes,
 } from "./types";
 
 export const authApi = baseStoreApi.injectEndpoints({
   endpoints: (builder) => ({
-    sendOtp: builder.mutation<SendOtpRes, SendOtpReq>({
+    sendOtp: builder.mutation<MessageResponse, SendOtpPayload>({
       query: ({ mobile }) => ({
         url: "auth/send-otp",
         method: "POST",
@@ -21,7 +21,7 @@ export const authApi = baseStoreApi.injectEndpoints({
         },
       }),
     }),
-    checkOtp: builder.mutation<CheckOtpRes, CheckOtpReq>({
+    checkOtp: builder.mutation<TokensRes, CheckOtpPayload>({
       query: ({ mobile, code }) => ({
         url: "auth/check-otp",
         method: "POST",
@@ -32,7 +32,7 @@ export const authApi = baseStoreApi.injectEndpoints({
       }),
       invalidatesTags: ["User", "Post"],
     }),
-    checkRefreshToken: builder.mutation<CheckTokenRes, CheckTokenReq>({
+    checkRefreshToken: builder.mutation<TokensRes, CheckTokenPayload>({
       query: ({ refreshToken }) => ({
         url: "auth/check-refresh-token",
         method: "POST",
