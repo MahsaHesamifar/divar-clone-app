@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 
-import { CustomButton, InputField } from "@/components/elements";
+import { Button, Input } from "@/components/elements";
 import { messages } from "@/constants";
 import { useCheckOtpMutation, useGetUserRoleQuery } from "@/services/auth";
 import { paths, setRole, setTokens } from "@/utils";
@@ -62,7 +62,7 @@ export const CheckOtp = ({ mobile }: CheckOtpProps) => {
       <p className="font-bold my-5">کد تأیید را وارد کنید</p>
       <p className="text-grey-400 my-5">کد پیامک‌شده را وارد کنید.</p>
 
-      <InputField
+      <Input
         label="code"
         name="code"
         registration={register("code", {
@@ -75,7 +75,7 @@ export const CheckOtp = ({ mobile }: CheckOtpProps) => {
 
       <hr className="border border-grey-200 mt-10 mb-5" />
       <div className="w-full flex justify-end">
-        <CustomButton type="submit" isLoading={isLoading} text={"تایید"} />
+        <Button type="submit" isLoading={isLoading} text={"تایید"} />
       </div>
     </form>
   );

@@ -1,11 +1,6 @@
-import type { CustomButtonProps } from "./types";
+import type { ButtonProps } from "./types";
 
-export const CustomButton = ({
-  isLoading,
-  type,
-  text,
-  ...props
-}: CustomButtonProps) => {
+export const Button = ({ isLoading, type, text, ...props }: ButtonProps) => {
   return (
     <button
       className="bg-primary hover:bg-primary/80 rounded py-2 px-4 text-white disabled:cursor-wait"

@@ -1,6 +1,6 @@
-import type { SelectFieldProps } from "./types";
+import type { SelectProps } from "./types";
 
-export const SelectField = ({
+export const Select = ({
   label,
   showLabel,
   name,
@@ -9,7 +9,7 @@ export const SelectField = ({
   errorMessage,
   options,
   ...props
-}: SelectFieldProps) => {
+}: SelectProps) => {
   return (
     <>
       {showLabel && <label htmlFor={name}>{label}:</label>}

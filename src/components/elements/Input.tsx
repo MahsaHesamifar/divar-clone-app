@@ -1,6 +1,6 @@
-import type { TextareaFieldProps } from "./types";
+import type { InputProps } from "./types";
 
-export const TextareaField = ({
+export const Input = ({
   label,
   showLabel,
   name,
@@ -8,18 +8,20 @@ export const TextareaField = ({
   error,
   errorMessage,
   isLeftToRight,
+  type = "text",
   ...props
-}: TextareaFieldProps) => {
+}: InputProps) => {
   return (
     <>
       {showLabel && <label htmlFor={name}>{label}:</label>}
-      <textarea
+      <input
         id={name}
         className={`w-full py-2 px-4 border-2 border-grey-200 rounded-lg mt-4 my-6 ${
           isLeftToRight ? "text-left" : null
         }`}
         dir={isLeftToRight ? "ltr" : ""}
         placeholder={label}
+        type={type}
         {...registration}
         {...props}
       />

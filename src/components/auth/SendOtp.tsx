@@ -3,7 +3,7 @@
 import { SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
-import { CustomButton, InputField } from "@/components/elements";
+import { Button, Input } from "@/components/elements";
 import { messages, steps } from "@/constants";
 import { useSendOtpMutation } from "@/services/auth";
 
@@ -39,7 +39,7 @@ export const SendOtp = ({ setStep, setMobile }: SendOtpProps) => {
         تأیید به این شماره پیامک خواهد شد.
       </p>
 
-      <InputField
+      <Input
         label="شماره موبایل"
         name="mobile"
         registration={register("mobile", {
@@ -53,7 +53,7 @@ export const SendOtp = ({ setStep, setMobile }: SendOtpProps) => {
 
       <hr className="border border-grey-200 mt-10 mb-5" />
       <div className="w-full flex justify-end">
-        <CustomButton type="submit" isLoading={isLoading} text="تایید" />
+        <Button type="submit" isLoading={isLoading} text="تایید" />
       </div>
     </form>
   );
