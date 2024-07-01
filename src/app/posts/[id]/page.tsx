@@ -53,7 +53,13 @@ export default function PostShowPage() {
 
           <div className="py-3">
             <span>توضیحات </span>
-            <p>{options.content}</p>
+            {options.content !== "" ? (
+              <p>{options.content}</p>
+            ) : (
+              <p className="text-grey-400 font-sm">
+                توضیحاتی برای این آگهی ثبت نشده است
+              </p>
+            )}
           </div>
         </div>
 
