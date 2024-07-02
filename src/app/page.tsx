@@ -17,7 +17,7 @@ export default function Home() {
         <Loading />
       ) : (
         <>
-          <div className="w-1/4">
+          <div className="w-full xl:w-1/4 mb-10">
             <div className="text-sm mb-4">دسته ها</div>
             <div>
               {categoriesData?.map((category) => {
