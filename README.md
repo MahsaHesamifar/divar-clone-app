@@ -76,5 +76,5 @@ yarn start
 ## Environment Variables
 Create a .env.local file in the root of your project and add any necessary environment variables there. For example:
 ```bash
-NEXT_PUBLIC_API_URL=https://api.yourbackend.com
+NEXT_PUBLIC_BASE_URL=https://api.yourbackend.com
 ```
