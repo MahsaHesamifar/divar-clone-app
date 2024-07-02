@@ -13,10 +13,20 @@ This is a clone of the Divar site built with modern web technologies. The app re
 ## Pages
 The app consists of the following main pages:
 - Home Page: `/`
+    ![Home Page](screenshots/homePage.png)
+  
 - User Panel: `/dashboard/user-panel`
+    ![Home Page](screenshots/userPanel1.png)
+      ![Home Page](screenshots/userPanel2.png)
+  
 - Admin Panel: `/dashboard/admin-panel`
+      ![Home Page](screenshots/adminPanel.png)
+  
 - Login Page: `/auth`
+      ![Home Page](screenshots/authPage.png)
+  
 - Show Post Page: `/post/[id]`
+      ![Home Page](screenshots/showPostPage.png)
 
 
 ## Getting Started
