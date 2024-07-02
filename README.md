@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+# Divar Clone App
+
+This is a clone of the Divar site built with modern web technologies. The app replicates the core functionalities of Divar, including listing advertisements, user interactions, and more.
+
+## Technologies Used
+- Next.js App Router: For routing and server-side rendering.
+- TypeScript: For static type checking and enhancing code quality.
+- Tailwind CSS: For rapid and responsive UI development.
+- React Hook Form: For managing form state and validation.
+- RTK Query: For data fetching and state management.
+
+## Pages
+The app consists of the following main pages:
+- Home Page: `/`
+- User Panel: `/dashboard/user-panel`
+- Admin Panel: `/dashboard/admin-panel`
+- Login Page: `/auth`
+- Show Post Page: `/post/[id]`
+
 
 ## Getting Started
+Follow these steps to set up and run the project on your local machine.
 
-First, run the development server:
+### Prerequisites
+Make sure you have the following installed:
+- Node.js (v14.x or later)
+- npm or yarn
 
+### Installation
+1. Clone  the repository:
+```bash
+git clone https://github.com/yourusername/divar-clone-app.git
+cd divar-clone-app
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn install
+```
+
+## Running the Development Server
+To start the development server, run:
 ```bash
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+Open http://localhost:3000 with your browser to see the result.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Building for Production
+To create an optimized production build, run:
+```bash
+npm run build
+# or
+yarn build
+```
+You can then start the production server with:
+```bash
+npm run start
+# or
+yarn start
+```
+## Environment Variables
+Create a .env.local file in the root of your project and add any necessary environment variables there. For example:
+```bash
+NEXT_PUBLIC_API_URL=https://api.yourbackend.com
+```
