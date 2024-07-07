@@ -37,7 +37,7 @@ export const Header = () => {
   };
 
   return (
-    <div className="flex items-center justify-between py-2 px-20 lg:px-60 border-b-2 border-grey-200">
+    <div className="flex items-center justify-between py-2 px-2 md:px-20 lg:px-60 border-b-2 border-grey-200">
       <Link href={paths.home()}>
         <Image
           src="/images/divarLogo.svg"
